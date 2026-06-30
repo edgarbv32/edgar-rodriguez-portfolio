@@ -1,15 +1,15 @@
-import { useState } from "react"
 import {
   Bot,
-  Building2,
   CheckCircle2,
-  ChevronDown,
   ExternalLink,
   PanelsTopLeft,
   ReceiptText,
 } from "lucide-react"
 import { FaGithub } from "react-icons/fa"
-import { motion, AnimatePresence } from "framer-motion"
+
+import { motion } from "framer-motion"
+
+import ScrollStack, { ScrollStackItem } from "../reactbits/ScrollStack"
 
 const projects = [
   {
@@ -17,339 +17,208 @@ const projects = [
     category: "Desktop Application",
     status: "Proyecto vendido",
     icon: ReceiptText,
-    featured: true,
     summary:
       "Sistema POS de escritorio para operación interna, ventas y persistencia local.",
-    description:
-      "Sistema POS de escritorio desarrollado para un hotel, enfocado en operación interna, control de ventas, administración de información y persistencia local.",
-    problem:
-      "El negocio necesitaba una solución práctica para gestionar operaciones internas sin depender de herramientas externas complejas o conexión constante a internet.",
-    solution:
-      "Se desarrolló una aplicación de escritorio con base de datos local, interfaz funcional y estructura pensada para facilitar el uso operativo diario.",
-    impact:
-      "Proyecto real entregado y vendido, útil para demostrar experiencia práctica más allá de ejercicios académicos.",
-    features: [
-      "Aplicación de escritorio para operación de hotel.",
-      "Persistencia de información con base de datos local.",
-      "Interfaz enfocada en uso práctico y flujo operativo.",
-      "Estructura modular para facilitar mantenimiento.",
-      "Proyecto real desarrollado para un cliente.",
+    stack: ["Electron", "Node.js", "SQLite", "JavaScript"],
+    highlights: [
+      "Aplicación de escritorio",
+      "Persistencia local",
+      "Sistema vendido",
     ],
-    stack: ["React", "Vite", "Tauri", "SQLite", "JavaScript"],
     github: "https://github.com/edgarbv32/hotel-san-carlos-pos",
     live: "",
   },
   {
     title: "SapiensAds AI",
-    category: "SaaS Platform",
+    category: "Web Platform",
     status: "Proyecto interno",
     icon: Bot,
-    featured: true,
     summary:
       "Plataforma web para automatización, administración de información y flujos digitales.",
-    description:
-      "Plataforma web orientada a automatizar procesos relacionados con anuncios, administración de información y flujos digitales usando tecnologías modernas.",
-    problem:
-      "La operación requería una herramienta más centralizada para trabajar con procesos digitales, información y automatización aplicada a marketing.",
-    solution:
-      "Se construyó una plataforma web con React, backend en Node.js, Firebase y Firestore para manejar autenticación, datos y flujos internos.",
-    impact:
-      "Demuestra experiencia combinando frontend, backend, base de datos, autenticación, APIs e integración de servicios.",
-    features: [
-      "Interfaz web moderna y responsiva.",
-      "Uso de Firebase y Firestore para datos y autenticación.",
-      "Integración con servicios y flujos internos.",
-      "Estructura tipo plataforma SaaS.",
-      "Orientación a automatización y operación digital.",
+    stack: ["React", "Node.js", "Firebase", "APIs REST"],
+    highlights: [
+      "Autenticación y datos",
+      "Flujos digitales",
+      "Integración de servicios",
     ],
-    stack: ["React", "Node.js", "Firebase", "Firestore", "APIs REST"],
     github: "https://github.com/edgarbv32/SapiensAds-main",
     live: "",
   },
   {
     title: "Desarrollo Web Corporativo",
     category: "Business Websites",
-    status: "Experiencia profesional",
+    status: "Experiencia real",
     icon: PanelsTopLeft,
-    featured: false,
     summary:
-      "Sitios web corporativos para presencia digital, servicios, marketing y leads.",
-    description:
-      "Desarrollo de sitios web corporativos para presencia digital, comunicación de servicios, marketing y generación de oportunidades comerciales.",
-    problem:
-      "La empresa necesitaba fortalecer su presencia digital con sitios web profesionales, funcionales y alineados a objetivos comerciales.",
-    solution:
-      "Se desarrollaron y desplegaron sitios web completos usando tecnologías frontend, hosting moderno y buenas prácticas visuales.",
-    impact:
-      "Experiencia real creando soluciones web para negocio, no solo proyectos personales o académicos.",
-    features: [
-      "Desarrollo completo de sitios web corporativos.",
-      "Diseño responsive para distintos dispositivos.",
-      "Publicación en plataformas de hosting.",
-      "Enfoque en presencia digital y generación de leads.",
-      "Mantenimiento y ajustes según necesidades del negocio.",
+      "Sitios web corporativos para presencia digital, servicios, marketing y generación de leads.",
+    stack: ["React", "HTML5", "CSS3", "Vercel", "Hostinger"],
+    highlights: [
+      "Sitios responsivos",
+      "Deploy profesional",
+      "Enfoque comercial",
     ],
-    stack: ["React", "HTML5", "CSS3", "JavaScript", "Vercel", "Hostinger"],
     github: "",
     live: "",
   },
 ]
 
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+}
+
 function Projects() {
-  const [openProjects, setOpenProjects] = useState([])
-
-  const toggleProject = (projectTitle) => {
-    setOpenProjects((currentProjects) =>
-      currentProjects.includes(projectTitle)
-        ? currentProjects.filter((title) => title !== projectTitle)
-        : [...currentProjects, projectTitle]
-    )
-  }
-
-  const handleMouseMove = (event) => {
-    const card = event.currentTarget
-    const rect = card.getBoundingClientRect()
-
-    const x = event.clientX - rect.left
-    const y = event.clientY - rect.top
-
-    card.style.setProperty("--mouse-x", `${x}px`)
-    card.style.setProperty("--mouse-y", `${y}px`)
-  }
-
   return (
     <section
       id="proyectos"
-      className="relative scroll-mt-28 px-5 py-10 md:px-8 md:py-12 lg:py-14"
+      className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: 0.6 }}
-          className="mb-7 max-w-3xl"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-10 max-w-3xl"
         >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300 sm:text-sm">
-            Proyectos destacados
-          </p>
+          <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-black uppercase tracking-[0.22em] text-cyan-200">
+            02 / Proyectos
+          </div>
 
-          <h2 className="text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Proyectos reales con enfoque técnico y de negocio.
+          <h2 className="text-4xl font-black tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
+            Proyectos destacados
           </h2>
 
-          <p className="mt-5 text-base leading-8 text-slate-300 sm:text-lg">
-            Una selección de proyectos donde apliqué desarrollo web, bases de
-            datos, automatización, despliegue e integración de herramientas.
+          <p className="mt-6 text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
+            Proyectos reales donde apliqué desarrollo web, bases de datos,
+            automatización, deploy e integración de herramientas para resolver
+            necesidades de negocio.
           </p>
         </motion.div>
 
-        <div className="grid items-start gap-5 lg:grid-cols-3">
-          {projects.map((project, index) => {
-            const Icon = project.icon
-            const isOpen = openProjects.includes(project.title)
+        <div className="relative h-[820px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/30 shadow-2xl shadow-black/25 backdrop-blur-xl sm:h-[860px] lg:h-[900px]">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-fuchsia-500/10" />
 
-            return (
-              <motion.article
-                key={project.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.18 }}
-                transition={{ duration: 0.6, delay: index * 0.06 }}
-                onMouseMove={handleMouseMove}
-                className={`group relative overflow-hidden rounded-[2rem] border backdrop-blur-xl transition duration-300 ${
-                  isOpen
-                    ? "border-cyan-400/35 bg-slate-950/62 shadow-2xl shadow-cyan-500/10"
-                    : "border-white/10 bg-slate-950/45 shadow-2xl shadow-cyan-500/5 hover:-translate-y-1 hover:border-cyan-400/25 hover:bg-slate-950/55"
-                }`}
-              >
-                <div
-                  className="pointer-events-none absolute inset-0 hidden opacity-0 transition duration-300 group-hover:opacity-100 lg:block"
-                  style={{
-                    background:
-                      "radial-gradient(520px circle at var(--mouse-x) var(--mouse-y), rgba(34, 211, 238, 0.18), rgba(139, 92, 246, 0.10) 32%, transparent 58%)",
-                  }}
-                />
+          <ScrollStack
+            itemDistance={140}
+            itemScale={0.035}
+            itemStackDistance={34}
+            stackPosition="20%"
+            scaleEndPosition="10%"
+            baseScale={0.86}
+            scaleDuration={0.5}
+            rotationAmount={0}
+            blurAmount={0}
+            useWindowScroll={false}
+          >
+            {projects.map((project, index) => {
+              const Icon = project.icon
 
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.035] via-transparent to-purple-500/[0.04]" />
-
-                <button
-                  type="button"
-                  onClick={() => toggleProject(project.title)}
-                  className="relative z-10 w-full p-6 text-left"
-                  aria-expanded={isOpen}
+              return (
+                <ScrollStackItem
+                  key={project.title}
+                  itemClassName="border border-white/10 bg-slate-950/95 text-white"
                 >
-                  <div className="mb-5 flex items-start justify-between gap-4">
-                    <div
-                      className={`rounded-2xl p-3 transition ${
-                        isOpen
-                          ? "bg-cyan-400/15 text-cyan-200"
-                          : "bg-cyan-400/10 text-cyan-300 group-hover:bg-cyan-400/15 group-hover:text-cyan-200"
-                      }`}
-                    >
-                      <Icon size={27} />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/12 via-transparent to-fuchsia-500/12" />
+
+                  <div className="relative z-10 flex h-full min-h-0 flex-col justify-between gap-8">
+                    <div className="flex items-start justify-between gap-6">
+                      <div className="min-w-0">
+                        <div className="mb-5 flex flex-wrap items-center gap-3">
+                          <span className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-[0.68rem] font-black uppercase tracking-[0.16em] text-slate-300 sm:text-xs">
+                            {project.category}
+                          </span>
+
+                          <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-[0.68rem] font-black uppercase tracking-[0.16em] text-emerald-200 sm:text-xs">
+                            {project.status}
+                          </span>
+                        </div>
+
+                        <p className="text-sm font-black text-cyan-300">
+                          {String(index + 1).padStart(2, "0")} /
+                        </p>
+
+                        <h3 className="mt-2 max-w-4xl text-[2.35rem] font-black leading-[0.92] tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
+                          {project.title}
+                        </h3>
+                      </div>
+
+                      <div className="hidden h-16 w-16 shrink-0 place-items-center rounded-2xl border border-cyan-300/25 bg-cyan-300/10 text-cyan-200 shadow-lg shadow-cyan-500/10 sm:grid">
+                        <Icon size={28} />
+                      </div>
                     </div>
 
-                    <div className="flex flex-col items-end gap-2">
-                      {project.featured && (
-                        <span className="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-200">
-                          Featured
-                        </span>
-                      )}
+                    <div className="grid gap-7 lg:grid-cols-[1fr_0.9fr] lg:items-end">
+                      <div>
+                        <p className="max-w-2xl text-base font-medium leading-7 text-slate-300 sm:text-xl sm:leading-9">
+                          {project.summary}
+                        </p>
 
-                      <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs font-semibold text-slate-300">
-                        {project.status}
-                      </span>
-                    </div>
-                  </div>
-
-                  <p className="mb-3 text-sm font-semibold text-cyan-200">
-                    {project.category}
-                  </p>
-
-                  <h3 className="text-2xl font-black leading-tight text-white">
-                    {project.title}
-                  </h3>
-
-                  <p className="mt-4 text-sm leading-7 text-slate-300">
-                    {project.summary}
-                  </p>
-
-                  <div className="mt-6 flex items-center justify-between gap-4 border-t border-white/10 pt-5">
-                    <span className="text-sm font-bold text-cyan-200">
-                      {isOpen ? "Ocultar detalles" : "Ver detalles"}
-                    </span>
-
-                    <span
-                      className={`rounded-xl border border-white/10 bg-white/[0.06] p-2 text-white transition duration-300 ${
-                        isOpen ? "rotate-180" : "rotate-0"
-                      }`}
-                    >
-                      <ChevronDown size={18} />
-                    </span>
-                  </div>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="relative z-10 overflow-hidden border-t border-white/10"
-                    >
-                      <div className="space-y-5 p-6 pt-5">
-                        <div className="flex flex-wrap gap-2">
+                        <div className="mt-6 flex flex-wrap gap-2">
                           {project.stack.map((tech) => (
                             <span
                               key={tech}
-                              className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-xs font-semibold text-slate-300"
+                              className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-[0.68rem] font-black uppercase tracking-[0.12em] text-slate-200 sm:text-xs"
                             >
                               {tech}
                             </span>
                           ))}
                         </div>
-
-                        <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
-                          <h4 className="mb-3 font-black text-white">
-                            Descripción
-                          </h4>
-
-                          <p className="text-sm leading-7 text-slate-300">
-                            {project.description}
-                          </p>
-                        </div>
-
-                        <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
-                          <div className="mb-3 flex items-center gap-2 font-black text-white">
-                            <Building2 size={18} className="text-cyan-300" />
-                            Problema
-                          </div>
-
-                          <p className="text-sm leading-7 text-slate-300">
-                            {project.problem}
-                          </p>
-                        </div>
-
-                        <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
-                          <div className="mb-3 flex items-center gap-2 font-black text-white">
-                            <CheckCircle2
-                              size={18}
-                              className="text-emerald-300"
-                            />
-                            Solución
-                          </div>
-
-                          <p className="text-sm leading-7 text-slate-300">
-                            {project.solution}
-                          </p>
-                        </div>
-
-                        <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
-                          <h4 className="mb-4 font-black text-white">
-                            Funcionalidades
-                          </h4>
-
-                          <div className="space-y-3">
-                            {project.features.map((feature) => (
-                              <div key={feature} className="flex gap-3">
-                                <CheckCircle2
-                                  size={17}
-                                  className="mt-1 shrink-0 text-cyan-300"
-                                />
-                                <p className="text-sm leading-6 text-slate-300">
-                                  {feature}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-5">
-                          <h4 className="mb-3 font-black text-white">
-                            Impacto
-                          </h4>
-
-                          <p className="text-sm leading-7 text-cyan-50">
-                            {project.impact}
-                          </p>
-                        </div>
-
-                        <div className="flex flex-col gap-3">
-                          {project.github && (
-                            <a
-                              href={project.github}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(event) => event.stopPropagation()}
-                              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.06] px-5 py-3.5 font-bold text-slate-100 transition hover:border-white/20 hover:bg-white/[0.1]"
-                            >
-                              <FaGithub />
-                              Código
-                            </a>
-                          )}
-
-                          {project.live && (
-                            <a
-                              href={project.live}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(event) => event.stopPropagation()}
-                              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-5 py-3.5 font-bold text-cyan-100 transition hover:bg-cyan-400/20"
-                            >
-                              <ExternalLink size={18} />
-                              Demo
-                            </a>
-                          )}
-                        </div>
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.article>
-            )
-          })}
+
+                      <div className="grid gap-3">
+                        {project.highlights.map((highlight) => (
+                          <div
+                            key={highlight}
+                            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-bold text-slate-200"
+                          >
+                            <CheckCircle2
+                              size={17}
+                              className="shrink-0 text-cyan-300"
+                            />
+                            {highlight}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex min-h-[3rem] flex-wrap items-center gap-3">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.07] px-5 py-3 text-sm font-black text-slate-100 transition hover:border-white/20 hover:bg-white/[0.12]"
+                        >
+                          <FaGithub />
+                          Código
+                        </a>
+                      )}
+
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-black text-cyan-100 transition hover:bg-cyan-400/20"
+                        >
+                          Demo
+                          <ExternalLink size={16} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </ScrollStackItem>
+              )
+            })}
+          </ScrollStack>
         </div>
       </div>
     </section>
