@@ -28,6 +28,9 @@ const ScrollStack = ({
   const cardsRef = useRef([])
   const lastTransformsRef = useRef(new Map())
   const isUpdatingRef = useRef(false)
+  const atBottomRef = useRef(false)
+  const wheelOverflowRef = useRef(0)
+  const isReleasingRef = useRef(false)
 
   const calculateProgress = useCallback((scrollTop, start, end) => {
     if (scrollTop < start) return 0
@@ -39,7 +42,6 @@ const ScrollStack = ({
     if (typeof value === "string" && value.includes("%")) {
       return (parseFloat(value) / 100) * containerHeight
     }
-
     return parseFloat(value)
   }, [])
 
@@ -51,9 +53,7 @@ const ScrollStack = ({
         scrollContainer: document.documentElement,
       }
     }
-
     const scroller = scrollerRef.current
-
     return {
       scrollTop: scroller.scrollTop,
       containerHeight: scroller.clientHeight,
@@ -67,7 +67,6 @@ const ScrollStack = ({
         const rect = element.getBoundingClientRect()
         return rect.top + window.scrollY
       }
-
       return element.offsetTop
     },
     [useWindowScroll],
@@ -97,31 +96,19 @@ const ScrollStack = ({
       const pinStart = cardTop - stackPositionPx - itemStackDistance * i
       const pinEnd = endElementTop - containerHeight / 2
 
-      const scaleProgress = calculateProgress(
-        scrollTop,
-        triggerStart,
-        triggerEnd,
-      )
-
+      const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd)
       const targetScale = baseScale + i * itemScale
       const scale = 1 - scaleProgress * (1 - targetScale)
       const rotation = rotationAmount ? i * rotationAmount * scaleProgress : 0
 
       let blur = 0
-
       if (blurAmount) {
         let topCardIndex = 0
-
         for (let j = 0; j < cardsRef.current.length; j++) {
           const jCardTop = getElementOffset(cardsRef.current[j])
-          const jTriggerStart =
-            jCardTop - stackPositionPx - itemStackDistance * j
-
-          if (scrollTop >= jTriggerStart) {
-            topCardIndex = j
-          }
+          const jTriggerStart = jCardTop - stackPositionPx - itemStackDistance * j
+          if (scrollTop >= jTriggerStart) topCardIndex = j
         }
-
         if (i < topCardIndex) {
           const depthInStack = topCardIndex - i
           blur = Math.max(0, depthInStack * blurAmount)
@@ -145,7 +132,6 @@ const ScrollStack = ({
       }
 
       const lastTransform = lastTransformsRef.current.get(i)
-
       const hasChanged =
         !lastTransform ||
         Math.abs(lastTransform.translateY - newTransform.translateY) > 0.1 ||
@@ -155,18 +141,14 @@ const ScrollStack = ({
 
       if (hasChanged) {
         const transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale}) rotate(${newTransform.rotation}deg)`
-        const filter =
-          newTransform.blur > 0 ? `blur(${newTransform.blur}px)` : ""
-
+        const filter = newTransform.blur > 0 ? `blur(${newTransform.blur}px)` : ""
         card.style.transform = transform
         card.style.filter = filter
-
         lastTransformsRef.current.set(i, newTransform)
       }
 
       if (i === cardsRef.current.length - 1) {
         const isInView = scrollTop >= pinStart && scrollTop <= pinEnd
-
         if (isInView && !stackCompletedRef.current) {
           stackCompletedRef.current = true
           onStackComplete?.()
@@ -195,7 +177,64 @@ const ScrollStack = ({
 
   const handleScroll = useCallback(() => {
     updateCardTransforms()
-  }, [updateCardTransforms])
+
+    if (!useWindowScroll) {
+      const scroller = scrollerRef.current
+      if (!scroller) return
+
+      const atBottom =
+        Math.abs(scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight) < 4
+
+      if (atBottom && !atBottomRef.current) {
+        atBottomRef.current = true
+        wheelOverflowRef.current = 0
+      }
+
+      if (!atBottom) {
+        atBottomRef.current = false
+        isReleasingRef.current = false
+        wheelOverflowRef.current = 0
+      }
+    }
+  }, [updateCardTransforms, useWindowScroll])
+
+  // Wheel handler: cuando está en el fondo y sigue scrolleando hacia abajo,
+  // propaga el evento al documento
+  const handleWheel = useCallback(
+    (e) => {
+      if (useWindowScroll) return
+
+      const scroller = scrollerRef.current
+      if (!scroller) return
+
+      const atBottom =
+        Math.abs(scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight) < 4
+      const atTop = scroller.scrollTop <= 0
+
+      if (atBottom && e.deltaY > 0) {
+        e.preventDefault()
+        e.stopPropagation()
+        wheelOverflowRef.current += e.deltaY
+
+        if (wheelOverflowRef.current > 80 || isReleasingRef.current) {
+          isReleasingRef.current = true
+          window.scrollBy({ top: e.deltaY * 1.2, behavior: "auto" })
+        }
+        return
+      }
+
+      if (atTop && e.deltaY < 0) {
+        e.preventDefault()
+        e.stopPropagation()
+        window.scrollBy({ top: e.deltaY * 1.2, behavior: "auto" })
+        return
+      }
+
+      wheelOverflowRef.current = 0
+      isReleasingRef.current = false
+    },
+    [useWindowScroll],
+  )
 
   const setupLenis = useCallback(() => {
     if (useWindowScroll) {
@@ -219,13 +258,11 @@ const ScrollStack = ({
       }
 
       animationFrameRef.current = requestAnimationFrame(raf)
-
       lenisRef.current = lenis
       return lenis
     }
 
     const scroller = scrollerRef.current
-
     if (!scroller) return
 
     const lenis = new Lenis({
@@ -254,14 +291,12 @@ const ScrollStack = ({
     }
 
     animationFrameRef.current = requestAnimationFrame(raf)
-
     lenisRef.current = lenis
     return lenis
   }, [handleScroll, useWindowScroll])
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current
-
     if (!scroller) return
 
     const cards = Array.from(
@@ -271,14 +306,12 @@ const ScrollStack = ({
     )
 
     cardsRef.current = cards
-
     const transformsCache = lastTransformsRef.current
 
     cards.forEach((card, i) => {
       if (i < cards.length - 1) {
         card.style.marginBottom = `${itemDistance}px`
       }
-
       card.style.willChange = "transform, filter"
       card.style.transformOrigin = "top center"
       card.style.backfaceVisibility = "hidden"
@@ -291,19 +324,24 @@ const ScrollStack = ({
     setupLenis()
     updateCardTransforms()
 
+    // Registrar wheel listener con passive: false para poder hacer preventDefault
+    scroller.addEventListener("wheel", handleWheel, { passive: false })
+
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current)
       }
-
       if (lenisRef.current) {
         lenisRef.current.destroy()
       }
-
+      scroller.removeEventListener("wheel", handleWheel)
       stackCompletedRef.current = false
       cardsRef.current = []
       transformsCache.clear()
       isUpdatingRef.current = false
+      atBottomRef.current = false
+      wheelOverflowRef.current = 0
+      isReleasingRef.current = false
     }
   }, [
     itemDistance,
@@ -319,6 +357,7 @@ const ScrollStack = ({
     onStackComplete,
     setupLenis,
     updateCardTransforms,
+    handleWheel,
   ])
 
   return (

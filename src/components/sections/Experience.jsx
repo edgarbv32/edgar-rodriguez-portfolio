@@ -28,7 +28,7 @@ function Experience() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mb-12 max-w-3xl"
         >
-          <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-black uppercase tracking-[0.22em] text-cyan-200">
+          <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-indigo-400/20 bg-indigo-400/10 px-4 py-2 text-sm font-black uppercase tracking-[0.22em] text-indigo-200">
             01 / Experiencia
           </div>
 
@@ -45,7 +45,7 @@ function Experience() {
           <div className="mt-7 rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 shadow-xl shadow-black/10 backdrop-blur-xl">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-300">
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-indigo-300">
                   Sapiens Inteligencia Creativa
                 </p>
 
@@ -68,7 +68,7 @@ function Experience() {
           transition={{ duration: 0.65, ease: "easeOut" }}
           className="relative"
         >
-          <div className="pointer-events-none absolute inset-0 -z-10 rounded-[2rem] bg-cyan-400/5 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 -z-10 rounded-[2rem] bg-indigo-400/5 blur-3xl" />
 
           <MagicBento
             textAutoHide={false}
@@ -80,7 +80,7 @@ function Experience() {
             clickEffect={true}
             spotlightRadius={320}
             particleCount={12}
-            glowColor="34, 211, 238"
+            glowColor="99, 102, 241"
           />
         </motion.div>
       </div>

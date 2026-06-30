@@ -32,7 +32,7 @@ const skillGroups = [
     items: [
       { name: "Node.js", icon: FaNodeJs, color: "#5FA04E" },
       { name: ".NET básico", icon: SiDotnet, color: "#512BD4" },
-      { name: "REST APIs", icon: TbApi, color: "#38BDF8" },
+      { name: "REST APIs", icon: TbApi, color: "#818cf8" },
       { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
     ],
   },
@@ -40,7 +40,7 @@ const skillGroups = [
     title: "Bases de datos",
     items: [
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-      { name: "SQLite", icon: SiSqlite, color: "#003B57" },
+      { name: "SQLite", icon: SiSqlite, color: "#7c9cbf" },
       { name: "MySQL", icon: SiMysql, color: "#4479A1" },
       { name: "Firestore", icon: SiFirebase, color: "#FFCA28" },
       { name: "SQL / NoSQL", icon: TbApi, color: "#A78BFA" },
@@ -55,7 +55,7 @@ const skillGroups = [
       { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
       { name: "CSS3", icon: FaCss3Alt, color: "#1572B6" },
       { name: "Vite", icon: SiVite, color: "#646CFF" },
-      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#818cf8" },
     ],
   },
   {
@@ -77,7 +77,7 @@ const skillGroups = [
     ],
   },
   {
-    title: "Mobile / Desktop / Automatización",
+    title: "Mobile / Desktop / Auto",
     items: [
       { name: "Tauri", icon: TbApi, color: "#FFC131" },
       { name: "Electron", icon: TbApi, color: "#47848F" },
@@ -99,13 +99,13 @@ function Stack() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-indigo-300">
             Stack tecnológico
           </p>
 
           <h2 className="text-4xl font-black text-white md:text-5xl">
             Tecnologías que uso para construir{" "}
-            <span className="bg-linear-to-r from-cyan-300 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
               soluciones completas.
             </span>
           </h2>

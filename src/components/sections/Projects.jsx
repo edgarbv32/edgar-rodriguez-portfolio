@@ -88,7 +88,7 @@ function Projects() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mb-10 max-w-3xl"
         >
-          <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-black uppercase tracking-[0.22em] text-cyan-200">
+          <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-indigo-400/20 bg-indigo-400/10 px-4 py-2 text-sm font-black uppercase tracking-[0.22em] text-indigo-200">
             02 / Proyectos
           </div>
 
@@ -104,7 +104,7 @@ function Projects() {
         </motion.div>
 
         <div className="relative h-[820px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/30 shadow-2xl shadow-black/25 backdrop-blur-xl sm:h-[860px] lg:h-[900px]">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-fuchsia-500/10" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-400/10 via-transparent to-fuchsia-500/10" />
 
           <ScrollStack
             itemDistance={140}
@@ -126,7 +126,7 @@ function Projects() {
                   key={project.title}
                   itemClassName="border border-white/10 bg-slate-950/95 text-white"
                 >
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/12 via-transparent to-fuchsia-500/12" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-400/10 via-transparent to-fuchsia-500/10" />
 
                   <div className="relative z-10 flex h-full min-h-0 flex-col justify-between gap-8">
                     <div className="flex items-start justify-between gap-6">
@@ -141,7 +141,7 @@ function Projects() {
                           </span>
                         </div>
 
-                        <p className="text-sm font-black text-cyan-300">
+                        <p className="text-sm font-black text-indigo-400">
                           {String(index + 1).padStart(2, "0")} /
                         </p>
 
@@ -150,7 +150,7 @@ function Projects() {
                         </h3>
                       </div>
 
-                      <div className="hidden h-16 w-16 shrink-0 place-items-center rounded-2xl border border-cyan-300/25 bg-cyan-300/10 text-cyan-200 shadow-lg shadow-cyan-500/10 sm:grid">
+                      <div className="hidden h-16 w-16 shrink-0 place-items-center rounded-2xl border border-indigo-400/25 bg-indigo-400/10 text-indigo-200 shadow-lg shadow-indigo-500/10 sm:grid">
                         <Icon size={28} />
                       </div>
                     </div>
@@ -181,7 +181,7 @@ function Projects() {
                           >
                             <CheckCircle2
                               size={17}
-                              className="shrink-0 text-cyan-300"
+                              className="shrink-0 text-indigo-400"
                             />
                             {highlight}
                           </div>
@@ -207,7 +207,7 @@ function Projects() {
                           href={project.live}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-black text-cyan-100 transition hover:bg-cyan-400/20"
+                          className="inline-flex items-center justify-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-400/10 px-5 py-3 text-sm font-black text-indigo-100 transition hover:bg-indigo-400/20"
                         >
                           Demo
                           <ExternalLink size={16} />

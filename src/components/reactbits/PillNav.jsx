@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
-
 import "./PillNav.css"
 
 const PillNav = ({
@@ -65,7 +64,6 @@ const PillNav = ({
         if (hoverLabel) gsap.set(hoverLabel, { y: h + 12, opacity: 0 })
 
         const index = circleRefs.current.indexOf(circle)
-
         if (index === -1) return
 
         tlRefs.current[index]?.kill()
@@ -74,41 +72,19 @@ const PillNav = ({
 
         tl.to(
           circle,
-          {
-            scale: 1.2,
-            xPercent: -50,
-            duration: 2,
-            ease,
-            overwrite: "auto",
-          },
+          { scale: 1.2, xPercent: -50, duration: 2, ease, overwrite: "auto" },
           0,
         )
 
         if (label) {
-          tl.to(
-            label,
-            {
-              y: -(h + 8),
-              duration: 2,
-              ease,
-              overwrite: "auto",
-            },
-            0,
-          )
+          tl.to(label, { y: -(h + 8), duration: 2, ease, overwrite: "auto" }, 0)
         }
 
         if (hoverLabel) {
           gsap.set(hoverLabel, { y: Math.ceil(h + 100), opacity: 0 })
-
           tl.to(
             hoverLabel,
-            {
-              y: 0,
-              opacity: 1,
-              duration: 2,
-              ease,
-              overwrite: "auto",
-            },
+            { y: 0, opacity: 1, duration: 2, ease, overwrite: "auto" },
             0,
           )
         }
@@ -120,7 +96,6 @@ const PillNav = ({
     layout()
 
     const onResize = () => layout()
-
     window.addEventListener("resize", onResize)
 
     if (document.fonts?.ready) {
@@ -128,14 +103,8 @@ const PillNav = ({
     }
 
     const menu = mobileMenuRef.current
-
     if (menu) {
-      gsap.set(menu, {
-        visibility: "hidden",
-        opacity: 0,
-        y: 10,
-        scaleY: 1,
-      })
+      gsap.set(menu, { visibility: "hidden", opacity: 0, y: 10, scaleY: 1 })
     }
 
     if (initialLoadAnimation) {
@@ -144,25 +113,12 @@ const PillNav = ({
 
       if (logoElement) {
         gsap.set(logoElement, { scale: 0 })
-
-        gsap.to(logoElement, {
-          scale: 1,
-          duration: 0.6,
-          ease,
-        })
+        gsap.to(logoElement, { scale: 1, duration: 0.6, ease })
       }
 
       if (navItemsElement) {
-        gsap.set(navItemsElement, {
-          width: 0,
-          overflow: "hidden",
-        })
-
-        gsap.to(navItemsElement, {
-          width: "auto",
-          duration: 0.6,
-          ease,
-        })
+        gsap.set(navItemsElement, { width: 0, overflow: "hidden" })
+        gsap.to(navItemsElement, { width: "auto", duration: 0.6, ease })
       }
     }
 
@@ -171,11 +127,8 @@ const PillNav = ({
 
   const handleEnter = (index) => {
     const tl = tlRefs.current[index]
-
     if (!tl) return
-
     activeTweenRefs.current[index]?.kill()
-
     activeTweenRefs.current[index] = tl.tweenTo(tl.duration(), {
       duration: 0.3,
       ease,
@@ -185,11 +138,8 @@ const PillNav = ({
 
   const handleLeave = (index) => {
     const tl = tlRefs.current[index]
-
     if (!tl) return
-
     activeTweenRefs.current[index]?.kill()
-
     activeTweenRefs.current[index] = tl.tweenTo(0, {
       duration: 0.2,
       ease,
@@ -199,13 +149,9 @@ const PillNav = ({
 
   const handleLogoEnter = () => {
     const img = logoImgRef.current
-
     if (!img) return
-
     logoTweenRef.current?.kill()
-
     gsap.set(img, { rotate: 0 })
-
     logoTweenRef.current = gsap.to(img, {
       rotate: 360,
       duration: 0.2,
@@ -216,26 +162,13 @@ const PillNav = ({
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false)
-
     const hamburger = hamburgerRef.current
     const menu = mobileMenuRef.current
 
     if (hamburger) {
       const lines = hamburger.querySelectorAll(".hamburger-line")
-
-      gsap.to(lines[0], {
-        rotation: 0,
-        y: 0,
-        duration: 0.3,
-        ease,
-      })
-
-      gsap.to(lines[1], {
-        rotation: 0,
-        y: 0,
-        duration: 0.3,
-        ease,
-      })
+      gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease })
+      gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease })
     }
 
     if (menu) {
@@ -246,66 +179,34 @@ const PillNav = ({
         duration: 0.2,
         ease,
         transformOrigin: "top center",
-        onComplete: () => {
-          gsap.set(menu, { visibility: "hidden" })
-        },
+        onComplete: () => gsap.set(menu, { visibility: "hidden" }),
       })
     }
   }
 
   const toggleMobileMenu = () => {
     const newState = !isMobileMenuOpen
-
     setIsMobileMenuOpen(newState)
-
     const hamburger = hamburgerRef.current
     const menu = mobileMenuRef.current
 
     if (hamburger) {
       const lines = hamburger.querySelectorAll(".hamburger-line")
-
       if (newState) {
-        gsap.to(lines[0], {
-          rotation: 45,
-          y: 3,
-          duration: 0.3,
-          ease,
-        })
-
-        gsap.to(lines[1], {
-          rotation: -45,
-          y: -3,
-          duration: 0.3,
-          ease,
-        })
+        gsap.to(lines[0], { rotation: 45, y: 3, duration: 0.3, ease })
+        gsap.to(lines[1], { rotation: -45, y: -3, duration: 0.3, ease })
       } else {
-        gsap.to(lines[0], {
-          rotation: 0,
-          y: 0,
-          duration: 0.3,
-          ease,
-        })
-
-        gsap.to(lines[1], {
-          rotation: 0,
-          y: 0,
-          duration: 0.3,
-          ease,
-        })
+        gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease })
+        gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease })
       }
     }
 
     if (menu) {
       if (newState) {
         gsap.set(menu, { visibility: "visible" })
-
         gsap.fromTo(
           menu,
-          {
-            opacity: 0,
-            y: 10,
-            scaleY: 1,
-          },
+          { opacity: 0, y: 10, scaleY: 1 },
           {
             opacity: 1,
             y: 0,
@@ -332,6 +233,38 @@ const PillNav = ({
 
   const mobileItems = [...items, ...actions]
 
+  const renderActions = () => {
+    const nodes = []
+    actions.forEach((action, index) => {
+      if (index > 0) {
+        nodes.push(
+          <span
+            key={`divider-${index}`}
+            className="pill-action-divider"
+            aria-hidden="true"
+          />
+        )
+      }
+      nodes.push(
+        <a
+          key={action.href || `action-${index}`}
+          href={action.href}
+          target={action.target}
+          rel={action.rel}
+          download={action.download || undefined}
+          aria-label={action.ariaLabel || action.label}
+          className={`pill-action pill-action--${action.variant || "default"}`}
+        >
+          {action.icon && (
+            <span className="pill-action__icon">{action.icon}</span>
+          )}
+          <span className="pill-action__label">{action.label}</span>
+        </a>
+      )
+    })
+    return nodes
+  }
+
   return (
     <div className="pill-nav-container">
       <nav
@@ -345,8 +278,8 @@ const PillNav = ({
             href={items?.[0]?.href || "#inicio"}
             aria-label="Inicio"
             onMouseEnter={handleLogoEnter}
-            ref={(element) => {
-              logoRef.current = element
+            ref={(el) => {
+              logoRef.current = el
             }}
           >
             <img src={logo} alt={logoAlt} ref={logoImgRef} />
@@ -368,11 +301,10 @@ const PillNav = ({
                   <span
                     className="hover-circle"
                     aria-hidden="true"
-                    ref={(element) => {
-                      circleRefs.current[index] = element
+                    ref={(el) => {
+                      circleRefs.current[index] = el
                     }}
                   />
-
                   <span className="label-stack">
                     <span className="pill-label">{item.label}</span>
                     <span className="pill-label-hover" aria-hidden="true">
@@ -387,25 +319,7 @@ const PillNav = ({
 
         {actions.length > 0 && (
           <div className="pill-nav-actions desktop-only">
-            {actions.map((action) => (
-              <a
-                key={action.href}
-                href={action.href}
-                target={action.target}
-                rel={action.rel}
-                download={action.download}
-                aria-label={action.ariaLabel || action.label}
-                className={`pill-action pill-action--${action.variant || "default"}`}
-              >
-                {action.icon && (
-                  <span className="pill-action__icon">{action.icon}</span>
-                )}
-
-                {action.variant !== "icon" && (
-                  <span className="pill-action__label">{action.label}</span>
-                )}
-              </a>
-            ))}
+            {renderActions()}
           </div>
         )}
 
@@ -433,16 +347,13 @@ const PillNav = ({
                 href={item.href}
                 target={item.target}
                 rel={item.rel}
-                download={item.download}
-                className={`mobile-menu-link${
-                  activeHref === item.href ? " is-active" : ""
-                }`}
+                download={item.download || undefined}
+                className={`mobile-menu-link${activeHref === item.href ? " is-active" : ""}`}
                 onClick={closeMobileMenu}
               >
                 {item.icon && (
                   <span className="mobile-menu-link__icon">{item.icon}</span>
                 )}
-
                 <span>{item.label}</span>
               </a>
             </li>

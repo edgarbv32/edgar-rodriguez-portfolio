@@ -66,18 +66,9 @@ const capabilities = [
 ]
 
 const stats = [
-  {
-    value: "3+",
-    label: "Sitios web reales",
-  },
-  {
-    value: "1",
-    label: "Sistema POS vendido",
-  },
-  {
-    value: "B2",
-    label: "Inglés",
-  },
+  { value: "3+", label: "Sitios web reales" },
+  { value: "1",  label: "Sistema POS vendido" },
+  { value: "B2", label: "Inglés" },
 ]
 
 function Hero() {
@@ -88,40 +79,43 @@ function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen overflow-hidden px-4 pb-16 pt-32 sm:px-6 lg:px-8 lg:pb-20 lg:pt-36"
+      className="relative min-h-screen overflow-hidden px-4 pb-12 pt-24 sm:px-6 lg:px-8 lg:pb-16 lg:pt-28"
     >
-      <div className="mx-auto grid min-h-[calc(100vh-9rem)] max-w-7xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+      <div className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
         <motion.div
           initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease: "easeOut" }}
           className="relative z-10"
         >
+          {/* Badge disponible */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
-            className="mb-7 inline-flex w-fit items-center gap-3 rounded-full border border-emerald-300/20 bg-emerald-400/[0.08] px-4 py-2 text-[0.72rem] font-black uppercase tracking-[0.22em] text-emerald-200 shadow-lg shadow-emerald-500/10 backdrop-blur-xl sm:text-xs"
+            className="mb-5 inline-flex w-fit items-center gap-3 rounded-full border border-emerald-300/20 bg-emerald-400/[0.08] px-4 py-2 text-[0.72rem] font-black uppercase tracking-[0.22em] text-emerald-200 shadow-lg shadow-emerald-500/10 backdrop-blur-xl sm:text-xs"
           >
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.9)]" />
             Disponible para oportunidades
           </motion.div>
 
+          {/* Portfolio profesional */}
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.18, ease: "easeOut" }}
-            className="mb-5 flex items-center gap-3 text-sm font-black uppercase tracking-[0.34em] text-cyan-300 sm:text-base"
+            className="mb-4 flex items-center gap-3 text-sm font-black uppercase tracking-[0.34em] text-indigo-300 sm:text-base"
           >
             <Sparkles size={16} />
             Portfolio profesional
           </motion.p>
 
+          {/* Nombre — reducido */}
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.72, delay: 0.24, ease: "easeOut" }}
-            className="max-w-4xl text-[4.2rem] font-black leading-[0.9] tracking-[-0.085em] text-white sm:text-[5.5rem] md:text-[6.4rem] lg:text-[5.7rem] xl:text-[6.7rem]"
+            className="max-w-4xl text-[3rem] font-black leading-[0.92] tracking-[-0.075em] text-white sm:text-[4rem] md:text-[4.8rem] lg:text-[4.2rem] xl:text-[5rem]"
           >
             Edgar
             <br />
@@ -134,16 +128,14 @@ function Hero() {
             Developer Jr
           </motion.h1>
 
+          {/* Rotating text */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.58, delay: 0.34, ease: "easeOut" }}
-            className="mt-7 flex w-fit max-w-full flex-wrap items-center gap-3 rounded-[1.4rem] border border-white/10 bg-slate-950/50 px-4 py-3 shadow-xl shadow-black/20 backdrop-blur-xl"
+            className="mt-6 flex w-fit max-w-full flex-wrap items-center gap-3 rounded-[1.4rem] border border-white/10 bg-slate-950/50 px-4 py-3 shadow-xl shadow-black/20 backdrop-blur-xl"
           >
-            <span className="text-sm font-bold text-slate-400">
-              Enfoque:
-            </span>
-
+            <span className="text-sm font-bold text-slate-400">Enfoque:</span>
             <div className="min-w-[13rem]">
               <RotatingText
                 texts={[
@@ -153,7 +145,7 @@ function Hero() {
                   "APIs REST",
                   "Automatización",
                 ]}
-                mainClassName="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm font-black uppercase tracking-[0.16em] text-cyan-100"
+                mainClassName="rounded-full border border-indigo-400/25 bg-indigo-400/10 px-4 py-2 text-sm font-black uppercase tracking-[0.16em] text-indigo-100"
                 staggerFrom="last"
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
@@ -166,40 +158,39 @@ function Hero() {
             </div>
           </motion.div>
 
+          {/* Descripción */}
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.62, delay: 0.42, ease: "easeOut" }}
-            className="mt-7 max-w-2xl text-lg font-medium leading-8 text-slate-300 sm:text-xl sm:leading-9"
+            className="mt-5 max-w-2xl text-base font-medium leading-7 text-slate-300 sm:text-lg sm:leading-8"
           >
             Desarrollador junior con experiencia real creando sitios web,
             sistemas internos, automatizaciones, integraciones y soluciones
             digitales orientadas a negocio.
           </motion.p>
 
+          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.62, delay: 0.5, ease: "easeOut" }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+            className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
           >
             <a
               href="#proyectos"
-              className="group inline-flex items-center justify-center gap-3 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-6 py-4 text-sm font-black text-cyan-50 shadow-lg shadow-cyan-500/10 transition hover:border-cyan-300/40 hover:bg-cyan-300/16"
+              className="group inline-flex items-center justify-center gap-3 rounded-full border border-indigo-400/30 bg-indigo-400/10 px-6 py-3.5 text-sm font-black text-indigo-100 shadow-lg shadow-indigo-500/10 transition hover:border-indigo-400/45 hover:bg-indigo-400/18"
             >
               Ver proyectos
-              <ArrowRight
-                size={18}
-                className="transition group-hover:translate-x-1"
-              />
+              <ArrowRight size={17} className="transition group-hover:translate-x-1" />
             </a>
 
             <a
               href="/CV_Edgar_Rodriguez.pdf"
               download
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/10 bg-white/[0.06] px-6 py-4 text-sm font-black text-slate-100 transition hover:border-white/20 hover:bg-white/[0.1]"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/10 bg-white/[0.06] px-6 py-3.5 text-sm font-black text-slate-100 transition hover:border-white/20 hover:bg-white/[0.1]"
             >
-              <Download size={17} />
+              <Download size={16} />
               Descargar CV
             </a>
 
@@ -207,25 +198,26 @@ function Hero() {
               href="https://github.com/edgarbv32"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-6 py-4 text-sm font-black text-slate-200 transition hover:border-white/20 hover:bg-white/[0.09]"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-6 py-3.5 text-sm font-black text-slate-200 transition hover:border-white/20 hover:bg-white/[0.09]"
             >
               <FaGithub />
               GitHub
             </a>
           </motion.div>
 
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.62, delay: 0.58, ease: "easeOut" }}
-            className="mt-8 hidden grid-cols-3 gap-3 sm:grid"
+            className="mt-6 hidden grid-cols-3 gap-3 sm:grid"
           >
             {stats.map((stat) => (
               <div
                 key={stat.label}
                 className="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4 shadow-lg shadow-black/10 backdrop-blur-xl"
               >
-                <p className="text-2xl font-black tracking-[-0.04em] text-white">
+                <p className="text-xl font-black tracking-[-0.04em] text-white">
                   {stat.value}
                 </p>
                 <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-slate-400">
@@ -239,12 +231,13 @@ function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.54 }}
-            className="mt-9"
+            className="mt-7"
           >
             <MobileHeroCarousel />
           </motion.div>
         </motion.div>
 
+        {/* Command Center */}
         <motion.div
           initial={{ opacity: 0, x: 28, scale: 0.98 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -252,30 +245,28 @@ function Hero() {
           className="relative z-10 hidden w-full min-w-0 lg:block"
         >
           <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/62 shadow-2xl shadow-black/35 backdrop-blur-2xl">
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-fuchsia-500/10" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-fuchsia-500/10" />
 
-            <div className="relative border-b border-white/10 p-7">
+            <div className="relative border-b border-white/10 p-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black tracking-[-0.05em] text-white">
+                  <h2 className="text-xl font-black tracking-[-0.05em] text-white">
                     Developer Command Center
                   </h2>
-
-                  <p className="mt-2 text-base font-medium text-slate-400">
+                  <p className="mt-1.5 text-sm font-medium text-slate-400">
                     Selecciona una capacidad técnica
                   </p>
                 </div>
-
                 <div className="flex gap-2">
-                  <span className="h-3.5 w-3.5 rounded-full bg-red-400" />
-                  <span className="h-3.5 w-3.5 rounded-full bg-yellow-400" />
-                  <span className="h-3.5 w-3.5 rounded-full bg-emerald-400" />
+                  <span className="h-3 w-3 rounded-full bg-red-400" />
+                  <span className="h-3 w-3 rounded-full bg-yellow-400" />
+                  <span className="h-3 w-3 rounded-full bg-emerald-400" />
                 </div>
               </div>
             </div>
 
-            <div className="relative border-b border-white/10 p-6">
-              <div className="grid grid-cols-5 gap-3">
+            <div className="relative border-b border-white/10 p-5">
+              <div className="grid grid-cols-5 gap-2">
                 {capabilities.map((capability) => {
                   const Icon = capability.icon
                   const isActive = activeCapability.id === capability.id
@@ -285,20 +276,18 @@ function Hero() {
                       key={capability.id}
                       type="button"
                       onClick={() => setActiveCapability(capability)}
-                      className={`group relative overflow-hidden rounded-2xl border p-4 text-center transition duration-300 ${
+                      className={`group relative overflow-hidden rounded-xl border p-3 text-center transition duration-300 ${
                         isActive
-                          ? "border-cyan-300/35 bg-cyan-300/14 text-cyan-50 shadow-lg shadow-cyan-500/10"
-                          : "border-white/10 bg-white/[0.035] text-slate-200 hover:border-cyan-300/20 hover:bg-white/[0.06]"
+                          ? "border-indigo-400/35 bg-indigo-400/14 text-indigo-50 shadow-lg shadow-indigo-500/10"
+                          : "border-white/10 bg-white/[0.035] text-slate-200 hover:border-indigo-400/20 hover:bg-white/[0.06]"
                       }`}
                     >
-                      <span className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-300/8 to-transparent opacity-0 transition group-hover:opacity-100" />
-
+                      <span className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-400/8 to-transparent opacity-0 transition group-hover:opacity-100" />
                       <Icon
-                        size={20}
-                        className="relative mx-auto mb-4 text-cyan-300"
+                        size={18}
+                        className={`relative mx-auto mb-3 ${isActive ? "text-indigo-300" : "text-slate-400 group-hover:text-indigo-300"} transition`}
                       />
-
-                      <span className="relative text-base font-black tracking-[-0.03em]">
+                      <span className="relative text-xs font-black tracking-[-0.02em]">
                         {capability.label}
                       </span>
                     </button>
@@ -307,33 +296,33 @@ function Hero() {
               </div>
             </div>
 
-            <div className="relative p-8">
+            <div className="relative p-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeCapability.id}
-                  initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                  initial={{ opacity: 0, y: 14, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -14, scale: 0.98 }}
-                  transition={{ duration: 0.28, ease: "easeOut" }}
-                  className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-8 text-center shadow-xl shadow-black/10"
+                  exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-6 text-center shadow-xl shadow-black/10"
                 >
-                  <div className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-2xl border border-cyan-300/25 bg-cyan-300/10 text-cyan-200 shadow-lg shadow-cyan-500/10">
-                    <ActiveIcon size={30} />
+                  <div className="mx-auto mb-5 grid h-14 w-14 place-items-center rounded-xl border border-indigo-400/25 bg-indigo-400/10 text-indigo-200 shadow-lg shadow-indigo-500/10">
+                    <ActiveIcon size={26} />
                   </div>
 
-                  <h3 className="text-4xl font-black tracking-[-0.065em] text-white">
+                  <h3 className="text-2xl font-black tracking-[-0.055em] text-white">
                     {activeCapability.title}
                   </h3>
 
-                  <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-8 text-slate-300">
+                  <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-6 text-slate-300">
                     {activeCapability.description}
                   </p>
 
-                  <div className="mt-8 flex flex-wrap justify-center gap-3">
+                  <div className="mt-5 flex flex-wrap justify-center gap-2">
                     {activeCapability.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-white/10 bg-slate-950/50 px-4 py-2 text-sm font-black text-slate-200"
+                        className="rounded-full border border-white/10 bg-slate-950/50 px-3 py-1.5 text-xs font-black text-slate-200"
                       >
                         {tag}
                       </span>
