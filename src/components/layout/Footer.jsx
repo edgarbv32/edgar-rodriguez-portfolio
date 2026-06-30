@@ -1,5 +1,8 @@
 import { Mail } from "lucide-react"
-import { FaGithub, FaLinkedin } from "react-icons/fa"
+import { FaGithub } from "react-icons/fa"
+import { SiIndeed } from "react-icons/si"
+
+const INDEED_URL = "https://profile.indeed.com/?hl=es_MX&co=MX&from=gnav-homepage"
 
 function Footer() {
   return (
@@ -14,23 +17,25 @@ function Footer() {
             href="https://github.com/edgarbv32"
             target="_blank"
             rel="noreferrer"
-            className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white"
+            className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white"
             aria-label="GitHub"
           >
             <FaGithub size={18} />
           </a>
 
           <a
-            href="#"
-            className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white"
-            aria-label="LinkedIn"
+            href={INDEED_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white"
+            aria-label="Indeed"
           >
-            <FaLinkedin size={18} />
+            <SiIndeed size={18} />
           </a>
 
           <a
             href="mailto:edgar.rdz.dev@gmail.com"
-            className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white"
+            className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-slate-300 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-white"
             aria-label="Correo"
           >
             <Mail size={18} />

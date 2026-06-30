@@ -1,6 +1,10 @@
 import { Mail, MapPin, Phone, Send } from "lucide-react"
-import { FaGithub, FaLinkedin } from "react-icons/fa"
+import { FaGithub } from "react-icons/fa"
+import { SiIndeed } from "react-icons/si"
+
 import { motion } from "framer-motion"
+
+const INDEED_URL = "https://profile.indeed.com/?hl=es_MX&co=MX&from=gnav-homepage"
 
 function Contact() {
   return (
@@ -84,18 +88,20 @@ function Contact() {
                   href="https://github.com/edgarbv32"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-4 font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.07]"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-4 font-semibold text-white transition hover:border-indigo-400/30 hover:bg-indigo-500/10"
                 >
                   <FaGithub />
                   GitHub
                 </a>
 
                 <a
-                  href="#"
-                  className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-4 font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.07]"
+                  href={INDEED_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-4 font-semibold text-white transition hover:border-indigo-400/30 hover:bg-indigo-500/10"
                 >
-                  <FaLinkedin />
-                  LinkedIn
+                  <SiIndeed />
+                  Indeed
                 </a>
               </div>
             </div>
