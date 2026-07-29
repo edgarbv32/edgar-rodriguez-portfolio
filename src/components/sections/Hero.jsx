@@ -99,17 +99,6 @@ function Hero() {
             Disponible para oportunidades
           </motion.div>
 
-          {/* Portfolio profesional */}
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.18, ease: "easeOut" }}
-            className="mb-4 flex items-center gap-3 text-sm font-black uppercase tracking-[0.34em] text-indigo-300 sm:text-base"
-          >
-            <Sparkles size={16} />
-            Portfolio profesional
-          </motion.p>
-
           {/* Nombre — reducido */}
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
@@ -120,8 +109,6 @@ function Hero() {
             Edgar
             <br />
             Rodriguez
-            <br />
-            Backend &
             <br />
             Fullstack
             <br />
@@ -139,11 +126,12 @@ function Hero() {
             <div className="min-w-[13rem]">
               <RotatingText
                 texts={[
-                  "Backend",
                   "Fullstack",
                   "React",
+                  "Node.js",
                   "APIs REST",
                   "Automatización",
+                  "SQL",
                 ]}
                 mainClassName="rounded-full border border-indigo-400/25 bg-indigo-400/10 px-4 py-2 text-sm font-black uppercase tracking-[0.16em] text-indigo-100"
                 staggerFrom="last"

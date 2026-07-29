@@ -5,70 +5,71 @@ import "./MagicBento.css"
 
 const DEFAULT_PARTICLE_COUNT = 12
 const DEFAULT_SPOTLIGHT_RADIUS = 300
-const DEFAULT_GLOW_COLOR = "132, 0, 255"
+const DEFAULT_GLOW_COLOR = "99, 102, 241"
 const MOBILE_BREAKPOINT = 768
 
 const cardData = [
   {
     color: "#050816",
-    label: "Frontend",
-    eyebrow: "UI / Web",
-    title: "Desarrollo Web",
+    label: "Web",
+    eyebrow: "Desarrollo",
+    title: "Sitios y plataformas internas",
     description:
-      "Diseño y desarrollo de interfaces responsivas para sitios corporativos, páginas comerciales y plataformas internas.",
+      "Desarrollo de sitios web corporativos, páginas comerciales e interfaces funcionales para presencia digital y operación interna.",
     meta: ["React", "Tailwind", "Responsive"],
   },
   {
     color: "#050816",
-    label: "Workflows",
+    label: "Procesos",
     eyebrow: "Automatización",
-    title: "Procesos Digitales",
+    title: "Flujos operativos",
     description:
-      "Automatización de tareas operativas, flujos comerciales y herramientas internas para mejorar tiempos de respuesta.",
+      "Automatización de tareas comerciales, organización de procesos internos y apoyo en flujos digitales para mejorar seguimiento y atención.",
     meta: ["Procesos", "IA", "Operación"],
   },
   {
     color: "#050816",
-    label: "Experiencia",
-    eyebrow: "Sapiens",
-    title: "Soluciones Tecnológicas",
+    label: "Sapiens",
+    eyebrow: "Rol principal",
+    title: "Soluciones tecnológicas",
     description:
-      "Rol híbrido combinando desarrollo web, automatización, integración de herramientas, soporte técnico y operación digital.",
-    meta: ["Feb 2025 - May 2026", "Durango", "Tech + Operación"],
+      "Rol híbrido combinando desarrollo web, automatización, integración de herramientas, soporte técnico y operación digital aplicada a negocio.",
+    meta: ["Feb 2025 - May 2026", "Durango", "Tech + Negocio"],
     visual: "dashboard",
   },
   {
     color: "#050816",
-    label: "Sistemas",
-    eyebrow: "Integración",
-    title: "Herramientas & Servicios",
+    label: "Integración",
+    eyebrow: "Herramientas",
+    title: "Servicios conectados",
     description:
-      "Conexión de plataformas digitales, seguimiento de servicios, revisión de incidencias y apoyo técnico en flujos internos.",
+      "Apoyo en conexión de plataformas digitales, revisión de incidencias, seguimiento de logs y coordinación técnica de herramientas internas.",
     meta: ["APIs", "Logs", "Servicios"],
     visual: "network",
   },
   {
     color: "#050816",
     label: "Backend",
-    eyebrow: "APIs / Logs",
-    title: "Soporte Técnico",
+    eyebrow: "Soporte técnico",
+    title: "APIs, logs e incidencias",
     description:
-      "Seguimiento de logs, revisión de errores, integración de servicios y apoyo en lógica backend para operación interna.",
+      "Revisión de errores, análisis de comportamiento de servicios, seguimiento de incidencias y apoyo técnico en flujos relacionados con backend.",
     meta: ["Node.js", "REST", "Debug"],
   },
   {
     color: "#050816",
     label: "Delivery",
-    eyebrow: "Deploy",
-    title: "Publicación Web",
+    eyebrow: "Publicación",
+    title: "Deploy y mantenimiento",
     description:
-      "Deploy y mantenimiento de sitios usando plataformas modernas para entregar proyectos funcionales y accesibles.",
+      "Publicación y mantenimiento de sitios usando plataformas modernas para entregar proyectos accesibles, funcionales y listos para uso real.",
     meta: ["Vercel", "Hostinger", "GitHub"],
   },
 ]
 
 const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {
   const el = document.createElement("div")
+
   el.className = "particle"
   el.style.cssText = `
     position: absolute;
@@ -82,6 +83,7 @@ const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {
     left: ${x}px;
     top: ${y}px;
   `
+
   return el
 }
 
@@ -117,14 +119,17 @@ const ExperienceVisual = ({ type }) => {
               <span>status</span>
               <strong>active</strong>
             </div>
+
             <div className="system-line">
               <span>websites</span>
               <strong>3+</strong>
             </div>
+
             <div className="system-line">
               <span>automation</span>
               <strong>enabled</strong>
             </div>
+
             <div className="system-line">
               <span>tools</span>
               <strong>integrated</strong>
@@ -657,6 +662,7 @@ const MagicBento = ({
 
               <div className="magic-bento-card__content">
                 <h2 className="magic-bento-card__title">{card.title}</h2>
+
                 <p className="magic-bento-card__description">
                   {card.description}
                 </p>
