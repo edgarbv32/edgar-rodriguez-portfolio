@@ -6,7 +6,9 @@ import {
   FaGitAlt,
   FaGithub,
   FaHtml5,
+  FaJava,
   FaNodeJs,
+  FaPython,
   FaReact,
 } from "react-icons/fa"
 
@@ -30,6 +32,7 @@ import {
   TbApi,
   TbBrandVscode,
   TbCloudUpload,
+  TbCode,
   TbDatabase,
   TbPlugConnected,
   TbServer,
@@ -53,6 +56,20 @@ const mainLogos = [
     featured: true,
   },
   {
+    name: "HTML5",
+    role: "Markup",
+    icon: FaHtml5,
+    color: "#E34F26",
+    featured: true,
+  },
+  {
+    name: "CSS3",
+    role: "Styling",
+    icon: FaCss3Alt,
+    color: "#1572B6",
+    featured: true,
+  },
+  {
     name: "Node.js",
     role: "Backend",
     icon: FaNodeJs,
@@ -60,10 +77,31 @@ const mainLogos = [
     featured: true,
   },
   {
+    name: "Java",
+    role: "Language",
+    icon: FaJava,
+    color: "#F89820",
+    featured: true,
+  },
+  {
+    name: "C# / .NET",
+    role: "Backend base",
+    icon: SiDotnet,
+    color: "#512BD4",
+    featured: true,
+  },
+  {
     name: "APIs REST",
     role: "Integración",
     icon: TbApi,
     color: "#818CF8",
+    featured: true,
+  },
+  {
+    name: "SQL",
+    role: "Data",
+    icon: TbDatabase,
+    color: "#A78BFA",
     featured: true,
   },
   {
@@ -112,12 +150,11 @@ const mainLogos = [
 
 const categories = [
   {
-    title: "Frontend",
+    title: "Lenguajes",
     description:
-      "Interfaces web, componentes reutilizables y diseño responsivo.",
-    icon: FaReact,
+      "Base de programación para desarrollo web, backend, escritorio, móvil y fundamentos académicos.",
+    icon: TbCode,
     items: [
-      { name: "React", icon: FaReact, color: "#61DAFB", strong: true },
       {
         name: "JavaScript",
         icon: SiJavascript,
@@ -125,8 +162,28 @@ const categories = [
         strong: true,
       },
       { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-      { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
-      { name: "CSS3", icon: FaCss3Alt, color: "#1572B6" },
+      { name: "Java", icon: FaJava, color: "#F89820", strong: true },
+      {
+        name: "C# / .NET",
+        icon: SiDotnet,
+        color: "#512BD4",
+        strong: true,
+      },
+      { name: "C", icon: TbCode, color: "#A8B9CC" },
+      { name: "C++", icon: TbCode, color: "#659AD2" },
+      { name: "Python", icon: FaPython, color: "#3776AB" },
+      { name: "Dart", icon: SiDart, color: "#0175C2" },
+    ],
+  },
+  {
+    title: "Frontend",
+    description:
+      "Interfaces web, componentes reutilizables, estructura HTML, estilos CSS y diseño responsivo.",
+    icon: FaReact,
+    items: [
+      { name: "React", icon: FaReact, color: "#61DAFB", strong: true },
+      { name: "HTML5", icon: FaHtml5, color: "#E34F26", strong: true },
+      { name: "CSS3", icon: FaCss3Alt, color: "#1572B6", strong: true },
       {
         name: "Tailwind CSS",
         icon: SiTailwindcss,
@@ -138,7 +195,8 @@ const categories = [
   },
   {
     title: "Backend",
-    description: "Lógica de negocio, APIs, integraciones y automatización.",
+    description:
+      "Lógica de negocio, APIs, integraciones, servicios internos y automatización de procesos.",
     icon: TbServer,
     items: [
       { name: "Node.js", icon: FaNodeJs, color: "#5FA04E", strong: true },
@@ -160,21 +218,23 @@ const categories = [
   },
   {
     title: "Bases de datos",
-    description: "Persistencia local, bases relacionales y servicios NoSQL.",
+    description:
+      "SQL, persistencia local, bases relacionales y servicios NoSQL para aplicaciones reales.",
     icon: TbDatabase,
     items: [
+      { name: "SQL", icon: TbDatabase, color: "#A78BFA", strong: true },
       { name: "SQLite", icon: SiSqlite, color: "#7C9CBF", strong: true },
       { name: "Firebase", icon: SiFirebase, color: "#FFCA28", strong: true },
       { name: "Firestore", icon: SiFirebase, color: "#F59E0B" },
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
       { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-      { name: "SQL / NoSQL", icon: TbDatabase, color: "#A78BFA" },
+      { name: "NoSQL", icon: TbDatabase, color: "#A78BFA" },
     ],
   },
   {
     title: "Deploy & Tools",
     description:
-      "Publicación, control de versiones, pruebas y flujo de desarrollo.",
+      "Publicación, control de versiones, pruebas de APIs, hosting y flujo de desarrollo.",
     icon: FaGithub,
     items: [
       { name: "Git", icon: FaGitAlt, color: "#F05032", strong: true },
@@ -188,7 +248,8 @@ const categories = [
   },
   {
     title: "Desktop / Mobile",
-    description: "Experiencia complementaria en aplicaciones multiplataforma.",
+    description:
+      "Experiencia complementaria en aplicaciones de escritorio, soluciones multiplataforma y móvil.",
     icon: TbApi,
     items: [
       { name: "Electron", icon: TbApi, color: "#47848F", strong: true },
@@ -203,17 +264,17 @@ const projectLinks = [
   {
     name: "Hotel San Carlos POS",
     type: "Desktop App",
-    stack: "Electron · Node.js · SQLite · JavaScript",
+    stack: "Electron · Node.js · SQLite · JavaScript · HTML · CSS",
   },
   {
     name: "SapiensAds AI",
     type: "Web Platform",
-    stack: "React · Firebase · APIs REST · Tailwind",
+    stack: "React · Firebase · APIs REST · Tailwind · JavaScript",
   },
   {
     name: "Web Corporativo",
     type: "Corporate Websites",
-    stack: "React · HTML/CSS · Vercel · Hostinger",
+    stack: "React · HTML5 · CSS3 · Vercel · Hostinger",
   },
 ]
 
@@ -238,7 +299,7 @@ function LogoCard({ item, index }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{
         duration: 0.42,
-        delay: index * 0.04,
+        delay: index * 0.035,
         ease: "easeOut",
       }}
       className={[
@@ -393,16 +454,17 @@ function Stack() {
           className="mb-10"
         >
           <h2 className="max-w-4xl text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-            Stack visual con tecnologías{" "}
+            Stack visual con base de{" "}
             <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-              principales y complementarias.
+              software, web y datos.
             </span>
           </h2>
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-            Una vista rápida del stack que más representa mi perfil actual,
-            seguida por categorías compactas para mostrar herramientas, bases de
-            datos, deploy y experiencia multiplataforma.
+            Tecnologías principales y complementarias organizadas para conectar
+            con vacantes de desarrollo: lenguajes de programación, frontend,
+            backend, bases de datos, herramientas, deploy y experiencia
+            multiplataforma.
           </p>
         </motion.div>
 
@@ -420,8 +482,8 @@ function Stack() {
           <div className="relative z-10">
             <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <p className="max-w-2xl text-sm leading-7 text-slate-400">
-                Tecnologías principales y herramientas clave que conectan con
-                mis proyectos reales y mi perfil Backend / Fullstack Jr.
+                Tecnologías principales que fortalecen mi perfil para roles de
+                Software Developer Jr, Web Developer, Backend Jr o Fullstack Jr.
               </p>
 
               <p className="text-sm font-black uppercase tracking-[0.18em] text-indigo-300">

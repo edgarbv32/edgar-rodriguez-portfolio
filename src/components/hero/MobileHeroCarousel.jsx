@@ -1,19 +1,26 @@
 import { useState } from "react"
 
-import { Code2, Database, Layers3, Server, Zap } from "lucide-react"
+import {
+  Code2,
+  Database,
+  GraduationCap,
+  Layers3,
+  Server,
+  Zap,
+} from "lucide-react"
 
 import { AnimatePresence, motion } from "framer-motion"
 
 const slides = [
   {
-    id: "backend",
+    id: "languages",
     number: "01",
-    title: "Backend",
-    subtitle: "Lógica, APIs e integraciones",
+    title: "Lenguajes",
+    subtitle: "Base de programación",
     description:
-      "Construcción de APIs REST, lógica de negocio, servicios internos, autenticación y análisis de incidencias.",
-    icon: Server,
-    tags: ["Node.js", "REST APIs", "Logs"],
+      "Conocimientos en JavaScript, TypeScript, Java, C#, C, C++, Python y Dart para construir soluciones web, escritorio y lógica de negocio.",
+    icon: Code2,
+    tags: ["JavaScript", "Java", "C# / .NET", "C / C++", "Python"],
   },
   {
     id: "frontend",
@@ -21,39 +28,49 @@ const slides = [
     title: "Frontend",
     subtitle: "Interfaces modernas",
     description:
-      "Desarrollo de interfaces responsivas, limpias y funcionales con React, Vite y Tailwind CSS.",
-    icon: Code2,
-    tags: ["React", "Vite", "Tailwind"],
+      "Desarrollo de interfaces responsivas y componentes reutilizables con React, HTML5, CSS3, Tailwind CSS y Vite.",
+    icon: Layers3,
+    tags: ["React", "HTML5", "CSS3", "Tailwind"],
+  },
+  {
+    id: "backend",
+    number: "03",
+    title: "Backend",
+    subtitle: "APIs e integraciones",
+    description:
+      "Construcción de lógica de negocio, servicios, APIs REST, integración de herramientas y automatización de procesos.",
+    icon: Server,
+    tags: ["Node.js", "APIs REST", ".NET básico", "Integraciones"],
   },
   {
     id: "data",
-    number: "03",
+    number: "04",
     title: "Datos",
     subtitle: "SQL, NoSQL y persistencia",
     description:
-      "Manejo de datos para sistemas web, dashboards, aplicaciones internas y persistencia local.",
+      "Manejo de bases de datos locales, relacionales y servicios cloud para sistemas web, escritorio y plataformas internas.",
     icon: Database,
-    tags: ["MongoDB", "SQLite", "Firebase"],
+    tags: ["SQL", "SQLite", "Firebase", "MongoDB", "MySQL"],
   },
   {
     id: "automation",
-    number: "04",
+    number: "05",
     title: "Automatización",
     subtitle: "Procesos y operación",
     description:
-      "Automatización de flujos comerciales, herramientas internas, procesos digitales e IA aplicada a negocio.",
+      "Automatización de flujos comerciales, herramientas internas, revisión de logs, procesos digitales e IA aplicada a negocio.",
     icon: Zap,
-    tags: ["Procesos", "IA", "Operación"],
+    tags: ["Procesos", "APIs", "Logs", "IA"],
   },
   {
-    id: "deploy",
-    number: "05",
-    title: "Deploy",
-    subtitle: "Entrega y publicación",
+    id: "profile",
+    number: "06",
+    title: "Perfil",
+    subtitle: "Ingeniería en Sistemas",
     description:
-      "Publicación, mantenimiento y despliegue de sitios y aplicaciones usando plataformas modernas.",
-    icon: Layers3,
-    tags: ["Vercel", "Hostinger", "GitHub"],
+      "Egresado de Ingeniería en Sistemas Computacionales con enfoque en desarrollo de software, soluciones digitales e integración tecnológica.",
+    icon: GraduationCap,
+    tags: ["ISC", "Software", "Negocio", "Soluciones"],
   },
 ]
 
@@ -86,22 +103,19 @@ function MobileHeroCarousel() {
   return (
     <div className="lg:hidden">
       <div className="mb-3 flex items-center justify-between px-1">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.28em] text-cyan-300">
-            Tech Carousel
-          </p>
-          <p className="mt-1 text-sm font-semibold text-slate-400">
-            Desliza para explorar
-          </p>
-        </div>
+        <p className="text-sm font-semibold text-slate-400">
+          Desliza para explorar mi base técnica
+        </p>
 
         <div className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-slate-300">
           Drag
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/55 shadow-2xl shadow-black/30 backdrop-blur-2xl">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/15 via-transparent to-fuchsia-500/15" />
+      <div className="relative overflow-hidden rounded-[2rem] border border-indigo-300/20 bg-[#050816] shadow-2xl shadow-black/30 backdrop-blur-2xl">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.2),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.13),transparent_42%)]" />
+
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.032)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.032)_1px,transparent_1px)] bg-[length:42px_42px] opacity-20 [mask-image:radial-gradient(circle_at_top_right,black,transparent_62%)]" />
 
         <motion.div
           className="relative cursor-grab active:cursor-grabbing"
@@ -117,11 +131,11 @@ function MobileHeroCarousel() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -42, scale: 0.98 }}
               transition={{ duration: 0.28, ease: "easeOut" }}
-              className="relative min-h-[22rem] p-5"
+              className="relative min-h-[24rem] p-5"
             >
               <div className="mb-8 flex items-start justify-between gap-4">
                 <div>
-                  <span className="text-sm font-black text-cyan-300">
+                  <span className="text-sm font-black text-indigo-300">
                     {activeSlide.number} /
                   </span>
 
@@ -134,7 +148,7 @@ function MobileHeroCarousel() {
                   </p>
                 </div>
 
-                <div className="grid h-[3.5rem] w-[3.5rem] shrink-0 place-items-center rounded-2xl border border-cyan-300/25 bg-cyan-300/10 text-cyan-200 shadow-lg shadow-cyan-500/10">
+                <div className="grid h-[3.5rem] w-[3.5rem] shrink-0 place-items-center rounded-2xl border border-indigo-300/25 bg-indigo-500/10 text-indigo-200 shadow-lg shadow-indigo-500/10">
                   <ActiveIcon size={26} />
                 </div>
               </div>
@@ -171,7 +185,7 @@ function MobileHeroCarousel() {
                         aria-label={`Ir a ${slide.title}`}
                         className={`h-2.5 rounded-full transition-all ${
                           activeIndex === index
-                            ? "w-8 bg-cyan-300"
+                            ? "w-8 bg-indigo-300"
                             : "w-2.5 bg-white/25"
                         }`}
                       />

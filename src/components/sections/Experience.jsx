@@ -5,7 +5,6 @@ import {
   CalendarDays,
   Code2,
   MapPin,
-  Sparkles,
 } from "lucide-react"
 
 import MagicBento from "../reactbits/MagicBento"
@@ -23,11 +22,15 @@ const fadeUp = {
 
 const experienceTags = [
   "Desarrollo web",
+  "JavaScript",
+  "React",
+  "APIs REST",
   "Automatización",
-  "Integración de herramientas",
-  "APIs & logs",
+  "Integraciones",
+  "Bases de datos",
   "Deploy",
-  "Operación digital",
+  "Soporte técnico",
+  "Logs",
 ]
 
 function Experience() {
@@ -45,18 +48,17 @@ function Experience() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mb-12 max-w-4xl"
         >
-
           <h2 className="text-4xl font-black tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-            Experiencia real construyendo{" "}
+            Experiencia real desarrollando{" "}
             <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-              soluciones digitales
+              software y soluciones digitales
             </span>
           </h2>
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Trabajo real combinando desarrollo web, automatización, integración
-            de herramientas, soporte técnico y operación digital dentro de
-            Sapiens Inteligencia Creativa.
+            Más de 2 años de experiencia práctica construyendo aplicaciones web,
+            sistemas internos, automatización de procesos, integraciones y
+            herramientas digitales aplicadas a necesidades reales de negocio.
           </p>
         </motion.div>
 
@@ -78,13 +80,15 @@ function Experience() {
               </p>
 
               <h3 className="mt-3 text-3xl font-black leading-tight tracking-[-0.05em] text-white sm:text-4xl">
-                Encargado de Marketing y Soluciones Tecnológicas
+                Desarrollador de Soluciones Web y Automatización
               </h3>
 
               <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
-                Rol híbrido enfocado en resolver necesidades reales de negocio
-                mediante sitios web, automatización de procesos, integración de
-                herramientas, soporte técnico y mejora de flujos operativos.
+                Desarrollo e implementación de soluciones tecnológicas para
+                operación comercial: aplicaciones web, sitios corporativos,
+                sistemas internos, automatización de procesos, integración de
+                herramientas, soporte técnico, revisión de logs y despliegue de
+                soluciones orientadas al negocio.
               </p>
             </div>
 
@@ -96,6 +100,7 @@ function Experience() {
                       className="shrink-0 text-indigo-400"
                       size={19}
                     />
+
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500">
                       Periodo
                     </p>
@@ -109,6 +114,7 @@ function Experience() {
                 <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-5">
                   <div className="mb-3 flex items-center gap-3">
                     <MapPin className="shrink-0 text-indigo-400" size={19} />
+
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500">
                       Ubicación
                     </p>
@@ -123,8 +129,9 @@ function Experience() {
               <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-5">
                 <div className="mb-4 flex items-center gap-3">
                   <Code2 className="shrink-0 text-indigo-400" size={19} />
+
                   <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500">
-                    Enfoque técnico
+                    Stack y responsabilidades técnicas
                   </p>
                 </div>
 
