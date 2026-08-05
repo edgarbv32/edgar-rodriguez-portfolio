@@ -76,6 +76,9 @@ function Education() {
                     <img
                       src="/itd-logo.png"
                       alt="Logo del Instituto Tecnológico de Durango"
+                      loading="lazy"
+                      width={833}
+                      height={536}
                       className="h-full w-full object-contain"
                     />
                   </div>

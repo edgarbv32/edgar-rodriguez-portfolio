@@ -64,6 +64,10 @@ function GradientBlinds({
   const mouseTargetRef = useRef([0, 0])
   const lastTimeRef = useRef(0)
   const firstResizeRef = useRef(true)
+  const reducedMotionRef = useRef(
+    typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  )
 
   useEffect(() => {
     const container = containerRef.current
@@ -326,7 +330,11 @@ void main() {
     window.addEventListener("pointermove", updatePointer, { passive: true })
 
     const loop = (time) => {
-      rafRef.current = requestAnimationFrame(loop)
+      if (!reducedMotionRef.current) {
+        rafRef.current = requestAnimationFrame(loop)
+      } else {
+        rafRef.current = null
+      }
 
       uniforms.iTime.value = time * 0.001
 
@@ -362,9 +370,22 @@ void main() {
 
     rafRef.current = requestAnimationFrame(loop)
 
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+
+    const handleMotionChange = (event) => {
+      reducedMotionRef.current = event.matches
+
+      if (!event.matches && !rafRef.current) {
+        rafRef.current = requestAnimationFrame(loop)
+      }
+    }
+
+    motionQuery.addEventListener("change", handleMotionChange)
+
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
 
+      motionQuery.removeEventListener("change", handleMotionChange)
       window.removeEventListener("pointermove", updatePointer)
       ro.disconnect()
 

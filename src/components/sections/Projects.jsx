@@ -128,6 +128,9 @@ function ScreenshotPreview({ project }) {
           <img
             src={project.screenshotPath}
             alt={project.screenshotLabel}
+            loading="lazy"
+            width={1280}
+            height={720}
             onLoad={() => setImageLoaded(true)}
             onError={() => setImageFailed(true)}
             className={[
