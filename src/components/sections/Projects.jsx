@@ -5,7 +5,6 @@ import {
   BadgeCheck,
   Code2,
   ExternalLink,
-  ImageIcon,
   MonitorCog,
   Workflow,
 } from "lucide-react"
@@ -103,6 +102,7 @@ const fadeUp = {
 function ScreenshotPreview({ project }) {
   const [imageFailed, setImageFailed] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
+  const Icon = project.icon
 
   useEffect(() => {
     setImageFailed(false)
@@ -147,18 +147,20 @@ function ScreenshotPreview({ project }) {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.24),transparent_48%),radial-gradient(circle_at_80%_100%,rgba(168,85,247,0.18),transparent_42%)]" />
 
             <div className="absolute inset-4 rounded-3xl border border-dashed border-indigo-300/25 bg-[#070a1a]/85">
-              <div className="flex h-full flex-col items-center justify-center px-5 text-center">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-200">
-                  <ImageIcon size={22} />
+              <div className="flex h-full flex-col items-center justify-center gap-4 px-6 text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-200">
+                  <Icon size={26} />
                 </div>
 
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-200">
-                  {project.screenshotLabel}
-                </p>
+                <div>
+                  <p className="text-lg font-black tracking-[-0.03em] text-white">
+                    {project.title}
+                  </p>
 
-                <p className="mt-2 max-w-xs text-xs leading-5 text-slate-500">
-                  {project.screenshotPath}
-                </p>
+                  <p className="mt-1 text-[0.66rem] font-black uppercase tracking-[0.18em] text-indigo-300">
+                    {project.type}
+                  </p>
+                </div>
               </div>
             </div>
           </>
