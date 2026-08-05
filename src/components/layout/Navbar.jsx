@@ -6,6 +6,7 @@ import PillNav from "../reactbits/PillNav"
 const navItems = [
   { label: "Inicio",      href: "#inicio" },
   { label: "Experiencia", href: "#experiencia" },
+  { label: "Formación",   href: "#formacion" },
   { label: "Proyectos",   href: "#proyectos" },
   { label: "Stack",       href: "#stack" },
   { label: "Contacto",    href: "#contacto" },
