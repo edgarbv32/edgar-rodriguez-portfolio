@@ -33,7 +33,7 @@ function Education() {
   return (
     <section
       id="formacion"
-      className="relative scroll-mt-28 px-5 py-16 md:px-8 lg:py-20"
+      className="relative scroll-mt-24 px-5 py-16 md:px-8 lg:py-20"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
@@ -69,7 +69,7 @@ function Education() {
           <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
 
           <div className="relative grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
+            <div className="min-w-0 rounded-[1.6rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
               <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex items-start gap-4">
                   <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-2 shadow-lg shadow-indigo-500/10">
@@ -83,12 +83,12 @@ function Education() {
                     />
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-300">
                       Institución
                     </p>
 
-                    <h3 className="mt-2 max-w-xl text-3xl font-black leading-tight text-white sm:text-4xl">
+                    <h3 className="mt-2 max-w-xl break-words text-3xl font-black leading-tight text-white sm:text-4xl">
                       Instituto Tecnológico de Durango
                     </h3>
                   </div>
@@ -157,13 +157,13 @@ function Education() {
               </div>
             </div>
 
-            <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
+            <div className="min-w-0 rounded-[1.6rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
               <div className="mb-7">
                 <p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-300">
                   Enfoque académico
                 </p>
 
-                <h3 className="mt-3 text-3xl font-black leading-tight text-white sm:text-4xl">
+                <h3 className="mt-3 break-words text-3xl font-black leading-tight text-white sm:text-4xl">
                   Base técnica alineada a desarrollo, integración y procesos.
                 </h3>
 

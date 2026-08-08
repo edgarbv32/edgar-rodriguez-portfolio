@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Download } from "lucide-react"
-import { FaGithub } from "react-icons/fa"
+import { FaGithub, FaLinkedin } from "react-icons/fa"
 import PillNav from "../reactbits/PillNav"
 
 const navItems = [
@@ -21,6 +21,15 @@ const navActions = [
     icon: <FaGithub size={15} />,
     variant: "ghost",
     ariaLabel: "Abrir GitHub de Edgar Rodriguez",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/edgar-rodriguez-fullstack/",
+    target: "_blank",
+    rel: "noreferrer",
+    icon: <FaLinkedin size={15} />,
+    variant: "ghost",
+    ariaLabel: "Abrir LinkedIn de Edgar Rodriguez",
   },
   {
     label: "Descargar CV",

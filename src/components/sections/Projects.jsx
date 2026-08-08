@@ -310,7 +310,7 @@ function Projects() {
   return (
     <section
       id="proyectos"
-      className="relative scroll-mt-28 overflow-hidden px-5 py-16 md:px-8 lg:py-20"
+      className="relative scroll-mt-24 overflow-hidden px-5 py-16 md:px-8 lg:py-20"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div

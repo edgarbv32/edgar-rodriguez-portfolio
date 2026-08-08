@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { ChevronDown } from "lucide-react"
 
 import {
   FaAws,
@@ -303,10 +304,10 @@ function LogoCard({ item, index }) {
         ease: "easeOut",
       }}
       className={[
-        "group relative overflow-hidden rounded-3xl border bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-indigo-300/30 hover:bg-white/[0.065]",
+        "group relative overflow-hidden rounded-2xl border bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-indigo-300/30 hover:bg-white/[0.065] sm:rounded-3xl",
         item.featured
-          ? "border-indigo-300/20 p-5 shadow-xl shadow-indigo-500/10"
-          : "border-white/10 p-4",
+          ? "border-indigo-300/20 p-3 shadow-xl shadow-indigo-500/10 sm:p-5"
+          : "border-white/10 p-2.5 sm:p-4",
       ].join(" ")}
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.18),transparent_62%)] opacity-0 transition duration-300 group-hover:opacity-100" />
@@ -314,14 +315,14 @@ function LogoCard({ item, index }) {
       <div className="relative z-10 flex flex-col items-center text-center">
         <div
           className={[
-            "flex items-center justify-center rounded-2xl border border-white/10 bg-[#050816] shadow-lg shadow-black/20",
-            item.featured ? "h-16 w-16" : "h-14 w-14",
+            "flex items-center justify-center rounded-xl border border-white/10 bg-[#050816] shadow-lg shadow-black/20 sm:rounded-2xl",
+            item.featured ? "h-11 w-11 sm:h-16 sm:w-16" : "h-10 w-10 sm:h-14 sm:w-14",
           ].join(" ")}
         >
           <Icon
             className={[
               "transition duration-300 group-hover:scale-110",
-              item.featured ? "text-4xl" : "text-3xl",
+              item.featured ? "text-xl sm:text-4xl" : "text-lg sm:text-3xl",
             ].join(" ")}
             style={{ color: item.color }}
           />
@@ -329,14 +330,14 @@ function LogoCard({ item, index }) {
 
         <h3
           className={[
-            "mt-4 font-black tracking-[-0.04em] text-white",
-            item.featured ? "text-xl" : "text-base",
+            "mt-2 font-black leading-tight tracking-[-0.04em] text-white sm:mt-4",
+            item.featured ? "text-xs sm:text-xl" : "text-[0.7rem] sm:text-base",
           ].join(" ")}
         >
           {item.name}
         </h3>
 
-        <p className="mt-1 text-[0.62rem] font-black uppercase tracking-[0.16em] text-slate-500">
+        <p className="mt-1 hidden text-[0.62rem] font-black uppercase tracking-[0.16em] text-slate-500 sm:block">
           {item.role}
         </p>
       </div>
@@ -407,6 +408,58 @@ function CategoryRow({ category, index }) {
         </div>
       </div>
     </motion.article>
+  )
+}
+
+function CategoryAccordionItem({ category, index }) {
+  const Icon = category.icon
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.04,
+        ease: "easeOut",
+      }}
+    >
+      <details className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] open:border-indigo-300/25 open:bg-white/5">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-4 marker:content-none [&::-webkit-details-marker]:hidden">
+          <span className="flex min-w-0 items-center gap-3">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-200">
+              <Icon size={17} />
+            </span>
+
+            <span className="truncate text-sm font-black tracking-[-0.03em] text-white">
+              {category.title}
+            </span>
+
+            <span className="shrink-0 text-[0.65rem] font-bold text-slate-500">
+              ({category.items.length})
+            </span>
+          </span>
+
+          <ChevronDown
+            className="shrink-0 text-slate-500 transition duration-300 group-open:rotate-180 group-open:text-indigo-300"
+            size={18}
+          />
+        </summary>
+
+        <div className="px-4 pb-4">
+          <p className="mb-3 text-sm leading-6 text-slate-400">
+            {category.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            {category.items.map((item) => (
+              <TechChip key={item.name} item={item} />
+            ))}
+          </div>
+        </div>
+      </details>
+    </motion.div>
   )
 }
 
@@ -491,7 +544,7 @@ function Stack() {
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-4 lg:grid-cols-5">
               {mainLogos.map((item, index) => (
                 <LogoCard key={item.name} item={item} index={index} />
               ))}
@@ -499,9 +552,19 @@ function Stack() {
           </div>
         </motion.div>
 
-        <div className="grid gap-4">
+        <div className="hidden gap-4 md:grid">
           {categories.map((category, index) => (
             <CategoryRow
+              key={category.title}
+              category={category}
+              index={index}
+            />
+          ))}
+        </div>
+
+        <div className="grid gap-2.5 md:hidden">
+          {categories.map((category, index) => (
+            <CategoryAccordionItem
               key={category.title}
               category={category}
               index={index}

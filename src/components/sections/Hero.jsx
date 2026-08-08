@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import {
   ArrowRight,
@@ -12,7 +12,13 @@ import {
 
 import { FaGithub } from "react-icons/fa"
 
-import { AnimatePresence, motion } from "framer-motion"
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "framer-motion"
 
 import MobileHeroCarousel from "../hero/MobileHeroCarousel"
 import RotatingText from "../reactbits/RotatingText"
@@ -97,6 +103,52 @@ const stats = [
   },
 ]
 
+const statCardVariants = {
+  hidden: { opacity: 0, y: 18, scale: 0.96 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+}
+
+function StatValue({ value }) {
+  const match = value.match(/^(\D*)(\d+)(\D*)$/)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.6 })
+  const prefersReducedMotion = useReducedMotion()
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (!match || !isInView) return
+
+    const target = Number(match[2])
+
+    if (prefersReducedMotion) {
+      setCount(target)
+      return
+    }
+
+    const controls = animate(0, target, {
+      duration: 0.9,
+      delay: 0.2,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (latest) => setCount(Math.round(latest)),
+    })
+
+    return () => controls.stop()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInView, prefersReducedMotion])
+
+  if (!match) {
+    return <span ref={ref}>{value}</span>
+  }
+
+  return (
+    <span ref={ref}>
+      {match[1]}
+      {count}
+      {match[3]}
+    </span>
+  )
+}
+
 function Hero() {
   const [activeCapability, setActiveCapability] = useState(capabilities[0])
   const ActiveIcon = activeCapability.icon
@@ -122,7 +174,7 @@ function Hero() {
             Edgar Yarib Rodriguez Carrasco
           </p>
 
-          <h1 className="max-w-5xl text-[3.4rem] font-black leading-[0.9] tracking-[-0.075em] text-white min-[390px]:text-[3.85rem] sm:text-[5rem] md:text-[5.6rem] lg:text-[6.1rem] xl:text-[6.9rem]">
+          <h1 className="max-w-5xl break-words text-[3.4rem] font-black leading-[0.9] tracking-[-0.075em] text-white min-[390px]:text-[3.85rem] sm:text-[5rem] md:text-[5.6rem] lg:text-[6.1rem] xl:text-[6.9rem]">
             Full Stack
             <br />
             Developer
@@ -157,7 +209,7 @@ function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a
               href="#proyectos"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-4 font-black text-white shadow-lg shadow-indigo-500/20 transition hover:-translate-y-1"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-4 font-black text-white shadow-lg shadow-indigo-500/20 transition hover:-translate-y-1 sm:w-auto"
             >
               Ver proyectos
               <ArrowRight size={18} />
@@ -167,7 +219,7 @@ function Hero() {
               href="/CV_Edgar_Rodriguez.pdf"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-4 font-black text-white transition hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-indigo-500/10"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-4 font-black text-white transition hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-indigo-500/10 sm:w-auto"
             >
               Descargar CV
               <Download size={18} />
@@ -177,32 +229,40 @@ function Hero() {
               href="https://github.com/edgarbv32"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-4 font-black text-white transition hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-indigo-500/10"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-4 font-black text-white transition hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-indigo-500/10 sm:w-auto"
             >
               <FaGithub />
               GitHub
             </a>
           </div>
 
-          <div className="mt-8 grid max-w-4xl gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {stats.map((stat) => (
-              <div
+          <div className="mt-8 grid max-w-4xl grid-cols-2 gap-3 xl:grid-cols-4">
+            {stats.map((stat, index) => (
+              <motion.div
                 key={stat.label}
-                className="rounded-2xl border border-white/10 bg-white/[0.035] p-4"
+                variants={statCardVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{
+                  duration: 0.5,
+                  delay: 0.55 + index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition duration-300 hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-white/[0.06]"
               >
                 <p className="text-2xl font-black tracking-[-0.05em] text-white">
-                  {stat.value}
+                  <StatValue value={stat.value} />
                 </p>
 
                 <p className="mt-1 text-xs font-black uppercase tracking-[0.14em] text-slate-500">
                   {stat.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
 
-        <div>
+        <div className="min-w-0">
           <div className="hidden lg:block">
             <motion.div
               initial={{ opacity: 0, x: 28, scale: 0.98 }}

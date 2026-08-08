@@ -37,7 +37,7 @@ function Experience() {
   return (
     <section
       id="experiencia"
-      className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+      className="relative scroll-mt-24 overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
@@ -70,7 +70,7 @@ function Experience() {
           className="mb-10 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/55 p-5 shadow-2xl shadow-indigo-500/10 backdrop-blur-xl sm:p-7 lg:p-8"
         >
           <div className="grid gap-7 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-            <div>
+            <div className="min-w-0">
               <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-300 shadow-lg shadow-indigo-500/10">
                 <BriefcaseBusiness size={26} />
               </div>
@@ -79,7 +79,7 @@ function Experience() {
                 Sapiens Inteligencia Creativa
               </p>
 
-              <h3 className="mt-3 text-3xl font-black leading-tight tracking-[-0.05em] text-white sm:text-4xl">
+              <h3 className="mt-3 break-words text-3xl font-black leading-tight tracking-[-0.05em] text-white sm:text-4xl">
                 Desarrollador de Soluciones Web y Automatización
               </h3>
 

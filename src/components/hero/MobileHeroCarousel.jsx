@@ -102,16 +102,6 @@ function MobileHeroCarousel() {
 
   return (
     <div className="lg:hidden">
-      <div className="mb-3 flex items-center justify-between px-1">
-        <p className="text-sm font-semibold text-slate-400">
-          Desliza para explorar mi base técnica
-        </p>
-
-        <div className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-slate-300">
-          Drag
-        </div>
-      </div>
-
       <div className="relative overflow-hidden rounded-[2rem] border border-indigo-300/20 bg-[#050816] shadow-2xl shadow-black/30 backdrop-blur-2xl">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.2),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.13),transparent_42%)]" />
 
@@ -131,15 +121,15 @@ function MobileHeroCarousel() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -42, scale: 0.98 }}
               transition={{ duration: 0.28, ease: "easeOut" }}
-              className="relative min-h-[24rem] p-5"
+              className="relative flex min-h-[24rem] flex-col p-5"
             >
               <div className="mb-8 flex items-start justify-between gap-4">
-                <div>
+                <div className="min-w-0">
                   <span className="text-sm font-black text-indigo-300">
                     {activeSlide.number} /
                   </span>
 
-                  <h3 className="mt-3 text-[2.65rem] font-black leading-[0.9] tracking-[-0.065em] text-white">
+                  <h3 className="mt-3 break-words text-[2.15rem] font-black leading-[0.9] tracking-[-0.065em] text-white min-[380px]:text-[2.4rem] sm:text-[2.65rem]">
                     {activeSlide.title}
                   </h3>
 
@@ -168,27 +158,27 @@ function MobileHeroCarousel() {
                 ))}
               </div>
 
-              <div className="absolute bottom-5 left-5 right-5">
+              <div className="mt-auto pt-6">
                 <div className="mb-4 h-px w-full bg-white/10" />
 
-                <div className="flex items-center justify-between">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-                    Swipe / Tap
-                  </p>
-
-                  <div className="flex gap-2">
+                <div className="flex items-center justify-center">
+                  <div className="flex">
                     {slides.map((slide, index) => (
                       <button
                         key={slide.id}
                         type="button"
                         onClick={() => goToSlide(index)}
                         aria-label={`Ir a ${slide.title}`}
-                        className={`h-2.5 rounded-full transition-all ${
-                          activeIndex === index
-                            ? "w-8 bg-indigo-300"
-                            : "w-2.5 bg-white/25"
-                        }`}
-                      />
+                        className="flex items-center justify-center p-2"
+                      >
+                        <span
+                          className={`block h-2.5 rounded-full transition-all ${
+                            activeIndex === index
+                              ? "w-8 bg-indigo-300"
+                              : "w-2.5 bg-white/25"
+                          }`}
+                        />
+                      </button>
                     ))}
                   </div>
                 </div>

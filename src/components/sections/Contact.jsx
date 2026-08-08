@@ -1,10 +1,9 @@
 import { ArrowUpRight, Mail, MapPin, Phone, Send } from "lucide-react"
-import { FaGithub } from "react-icons/fa"
-import { SiIndeed } from "react-icons/si"
+import { FaGithub, FaLinkedin } from "react-icons/fa"
 
 import { motion } from "framer-motion"
 
-const INDEED_URL = "https://profile.indeed.com/?hl=es_MX&co=MX&from=gnav-homepage"
+const LINKEDIN_URL = "https://www.linkedin.com/in/edgar-rodriguez-fullstack/"
 
 const contactItems = [
   {
@@ -34,9 +33,9 @@ const profileLinks = [
     icon: FaGithub,
   },
   {
-    label: "Indeed",
-    href: INDEED_URL,
-    icon: SiIndeed,
+    label: "LinkedIn",
+    href: LINKEDIN_URL,
+    icon: FaLinkedin,
   },
 ]
 
@@ -117,7 +116,7 @@ function Contact() {
   return (
     <section
       id="contacto"
-      className="relative scroll-mt-28 px-5 py-16 md:px-8 lg:py-20"
+      className="relative scroll-mt-24 px-5 py-16 md:px-8 lg:py-20"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div

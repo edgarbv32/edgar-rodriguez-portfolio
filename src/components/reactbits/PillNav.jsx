@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
+import { ArrowUpRight } from "lucide-react"
 import "./PillNav.css"
 
 const PillNav = ({
@@ -27,6 +28,7 @@ const PillNav = ({
   const logoTweenRef = useRef(null)
   const hamburgerRef = useRef(null)
   const mobileMenuRef = useRef(null)
+  const mobileScrimRef = useRef(null)
   const navItemsRef = useRef(null)
   const logoRef = useRef(null)
 
@@ -107,6 +109,11 @@ const PillNav = ({
       gsap.set(menu, { visibility: "hidden", opacity: 0, y: 10, scaleY: 1 })
     }
 
+    const scrim = mobileScrimRef.current
+    if (scrim) {
+      gsap.set(scrim, { visibility: "hidden", opacity: 0 })
+    }
+
     if (initialLoadAnimation) {
       const logoElement = logoRef.current
       const navItemsElement = navItemsRef.current
@@ -124,6 +131,18 @@ const PillNav = ({
 
     return () => window.removeEventListener("resize", onResize)
   }, [items, ease, initialLoadAnimation])
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") closeMobileMenu()
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobileMenuOpen])
 
   const handleEnter = (index) => {
     const tl = tlRefs.current[index]
@@ -182,6 +201,16 @@ const PillNav = ({
         onComplete: () => gsap.set(menu, { visibility: "hidden" }),
       })
     }
+
+    const scrim = mobileScrimRef.current
+    if (scrim) {
+      gsap.to(scrim, {
+        opacity: 0,
+        duration: 0.2,
+        ease,
+        onComplete: () => gsap.set(scrim, { visibility: "hidden" }),
+      })
+    }
   }
 
   const toggleMobileMenu = () => {
@@ -189,6 +218,7 @@ const PillNav = ({
     setIsMobileMenuOpen(newState)
     const hamburger = hamburgerRef.current
     const menu = mobileMenuRef.current
+    const scrim = mobileScrimRef.current
 
     if (hamburger) {
       const lines = hamburger.querySelectorAll(".hamburger-line")
@@ -201,8 +231,8 @@ const PillNav = ({
       }
     }
 
-    if (menu) {
-      if (newState) {
+    if (newState) {
+      if (menu) {
         gsap.set(menu, { visibility: "visible" })
         gsap.fromTo(
           menu,
@@ -216,9 +246,14 @@ const PillNav = ({
             transformOrigin: "top center",
           },
         )
-      } else {
-        closeMobileMenu()
       }
+
+      if (scrim) {
+        gsap.set(scrim, { visibility: "visible" })
+        gsap.fromTo(scrim, { opacity: 0 }, { opacity: 1, duration: 0.3, ease })
+      }
+    } else {
+      closeMobileMenu()
     }
 
     onMobileMenuClick?.()
@@ -230,8 +265,6 @@ const PillNav = ({
     "--hover-text": hoveredPillTextColor,
     "--pill-text": resolvedPillTextColor,
   }
-
-  const mobileItems = [...items, ...actions]
 
   const renderActions = () => {
     const nodes = []
@@ -326,7 +359,9 @@ const PillNav = ({
         <button
           className="mobile-menu-button mobile-only"
           onClick={toggleMobileMenu}
-          aria-label="Abrir menú"
+          aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isMobileMenuOpen}
+          aria-haspopup="true"
           ref={hamburgerRef}
           type="button"
         >
@@ -336,29 +371,78 @@ const PillNav = ({
       </nav>
 
       <div
+        className="mobile-menu-scrim mobile-only"
+        ref={mobileScrimRef}
+        onClick={closeMobileMenu}
+        aria-hidden="true"
+      />
+
+      <div
         className="mobile-menu-popover mobile-only"
         ref={mobileMenuRef}
         style={cssVars}
+        role="menu"
       >
-        <ul className="mobile-menu-list">
-          {mobileItems.map((item, index) => (
-            <li key={item.href || `mobile-item-${index}`}>
-              <a
-                href={item.href}
-                target={item.target}
-                rel={item.rel}
-                download={item.download || undefined}
-                className={`mobile-menu-link${activeHref === item.href ? " is-active" : ""}`}
-                onClick={closeMobileMenu}
-              >
-                {item.icon && (
-                  <span className="mobile-menu-link__icon">{item.icon}</span>
-                )}
-                <span>{item.label}</span>
-              </a>
-            </li>
-          ))}
+        <ul className="mobile-menu-list" role="none">
+          {items.map((item, index) => {
+            const isActive = activeHref === item.href
+
+            return (
+              <li key={item.href || `mobile-item-${index}`} role="none">
+                <a
+                  role="menuitem"
+                  href={item.href}
+                  className={`mobile-menu-link${isActive ? " is-active" : ""}`}
+                  onClick={closeMobileMenu}
+                >
+                  <span className="mobile-menu-link__label">{item.label}</span>
+                  {isActive && (
+                    <span className="mobile-menu-link__dot" aria-hidden="true" />
+                  )}
+                </a>
+              </li>
+            )
+          })}
         </ul>
+
+        {actions.length > 0 && (
+          <>
+            <p className="mobile-menu-group-label">Enlaces</p>
+
+            <ul className="mobile-menu-list" role="none">
+              {actions.map((action, index) => (
+                <li key={action.href || `mobile-action-${index}`} role="none">
+                  <a
+                    role="menuitem"
+                    href={action.href}
+                    target={action.target}
+                    rel={action.rel}
+                    download={action.download || undefined}
+                    aria-label={action.ariaLabel || action.label}
+                    className="mobile-menu-link mobile-menu-link--action"
+                    onClick={closeMobileMenu}
+                  >
+                    {action.icon && (
+                      <span className="mobile-menu-link__icon">
+                        {action.icon}
+                      </span>
+                    )}
+                    <span className="mobile-menu-link__label">
+                      {action.label}
+                    </span>
+                    {action.target === "_blank" && (
+                      <ArrowUpRight
+                        className="mobile-menu-link__external"
+                        size={16}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </div>
   )
