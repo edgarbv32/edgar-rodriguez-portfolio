@@ -1,5 +1,9 @@
-import { motion } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+
+import { motion, useReducedMotion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
+
+import "./Stack.css"
 
 import {
   FaAws,
@@ -261,24 +265,6 @@ const categories = [
   },
 ]
 
-const projectLinks = [
-  {
-    name: "Hotel San Carlos POS",
-    type: "Desktop App",
-    stack: "Electron · Node.js · SQLite · JavaScript · HTML · CSS",
-  },
-  {
-    name: "SapiensAds AI",
-    type: "Web Platform",
-    stack: "React · Firebase · APIs REST · Tailwind · JavaScript",
-  },
-  {
-    name: "Web Corporativo",
-    type: "Corporate Websites",
-    stack: "React · HTML5 · CSS3 · Vercel · Hostinger",
-  },
-]
-
 const fadeUp = {
   hidden: {
     opacity: 0,
@@ -290,58 +276,73 @@ const fadeUp = {
   },
 }
 
-function LogoCard({ item, index }) {
+function StackChip({ item, ariaHidden }) {
   const Icon = item.icon
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.94 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{
-        duration: 0.42,
-        delay: index * 0.035,
-        ease: "easeOut",
-      }}
+    <span
+      aria-hidden={ariaHidden || undefined}
       className={[
-        "group relative overflow-hidden rounded-2xl border bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-indigo-300/30 hover:bg-white/[0.065] sm:rounded-3xl",
+        "group inline-flex shrink-0 items-center gap-3 rounded-full border px-5 py-3 text-base font-black tracking-[-0.01em] transition duration-300 hover:-translate-y-0.5",
         item.featured
-          ? "border-indigo-300/20 p-3 shadow-xl shadow-indigo-500/10 sm:p-5"
-          : "border-white/10 p-2.5 sm:p-4",
+          ? "border-indigo-300/25 bg-indigo-500/10 text-white hover:border-indigo-300/40 hover:bg-indigo-500/15"
+          : "border-white/10 bg-white/[0.035] text-slate-300 hover:border-indigo-300/25 hover:bg-indigo-500/10 hover:text-white",
       ].join(" ")}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.18),transparent_62%)] opacity-0 transition duration-300 group-hover:opacity-100" />
+      <Icon
+        className="text-xl transition duration-300 group-hover:scale-110"
+        style={{ color: item.color }}
+      />
 
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <div
-          className={[
-            "flex items-center justify-center rounded-xl border border-white/10 bg-[#050816] shadow-lg shadow-black/20 sm:rounded-2xl",
-            item.featured ? "h-11 w-11 sm:h-16 sm:w-16" : "h-10 w-10 sm:h-14 sm:w-14",
-          ].join(" ")}
-        >
-          <Icon
-            className={[
-              "transition duration-300 group-hover:scale-110",
-              item.featured ? "text-xl sm:text-4xl" : "text-lg sm:text-3xl",
-            ].join(" ")}
-            style={{ color: item.color }}
-          />
-        </div>
+      {item.name}
+    </span>
+  )
+}
 
-        <h3
-          className={[
-            "mt-2 font-black leading-tight tracking-[-0.04em] text-white sm:mt-4",
-            item.featured ? "text-xs sm:text-xl" : "text-[0.7rem] sm:text-base",
-          ].join(" ")}
-        >
-          {item.name}
-        </h3>
+const MARQUEE_RESUME_DELAY_MS = 4000
 
-        <p className="mt-1 hidden text-[0.62rem] font-black uppercase tracking-[0.16em] text-slate-500 sm:block">
-          {item.role}
-        </p>
+function StackMarquee({ items }) {
+  const [isPaused, setIsPaused] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
+  const resumeTimeoutRef = useRef(null)
+
+  const pauseTemporarily = () => {
+    setIsPaused(true)
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+    resumeTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false)
+    }, MARQUEE_RESUME_DELAY_MS)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+    }
+  }, [])
+
+  return (
+    <div
+      className="relative overflow-hidden [mask-image:linear-gradient(90deg,black,black_88%,transparent)]"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={pauseTemporarily}
+    >
+      <div
+        className="flex w-max animate-[marquee_46s_linear_infinite] gap-2.5"
+        style={{
+          animationPlayState:
+            isPaused || prefersReducedMotion ? "paused" : "running",
+        }}
+      >
+        {items.map((item) => (
+          <StackChip key={item.name} item={item} />
+        ))}
+
+        {items.map((item) => (
+          <StackChip key={`${item.name}-dup`} item={item} ariaHidden />
+        ))}
       </div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -463,34 +464,6 @@ function CategoryAccordionItem({ category, index }) {
   )
 }
 
-function ProjectLinkCard({ item, index }) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{
-        duration: 0.42,
-        delay: index * 0.05,
-        ease: "easeOut",
-      }}
-      className="rounded-3xl border border-white/10 bg-white/[0.035] p-5 transition hover:border-indigo-300/25 hover:bg-white/[0.055]"
-    >
-      <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-indigo-300">
-        {item.type}
-      </p>
-
-      <h3 className="mt-3 text-xl font-black tracking-[-0.04em] text-white">
-        {item.name}
-      </h3>
-
-      <p className="mt-3 text-sm font-semibold leading-6 text-slate-400">
-        {item.stack}
-      </p>
-    </motion.article>
-  )
-}
-
 function Stack() {
   return (
     <section
@@ -507,17 +480,22 @@ function Stack() {
           className="mb-10"
         >
           <h2 className="max-w-4xl text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-            Stack visual con base de{" "}
+            Stack de{" "}
             <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
               software, web y datos.
             </span>
           </h2>
 
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+          <p className="mt-6 hidden max-w-3xl text-lg leading-8 text-slate-300 md:block">
             Tecnologías principales y complementarias organizadas para conectar
             con vacantes de desarrollo: lenguajes de programación, frontend,
             backend, bases de datos, herramientas, deploy y experiencia
             multiplataforma.
+          </p>
+
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:hidden">
+            Tecnologías organizadas por área: lenguajes, frontend, backend,
+            datos y deploy.
           </p>
         </motion.div>
 
@@ -526,30 +504,9 @@ function Stack() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.18 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
-          className="relative mb-6 overflow-hidden rounded-[2rem] border border-indigo-300/20 bg-[#050816] p-5 shadow-2xl shadow-black/30 sm:p-6"
+          className="mb-14"
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.2),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.13),transparent_42%)]" />
-
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.032)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.032)_1px,transparent_1px)] bg-[length:42px_42px] opacity-20 [mask-image:radial-gradient(circle_at_top_right,black,transparent_62%)]" />
-
-          <div className="relative z-10">
-            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <p className="max-w-2xl text-sm leading-7 text-slate-400">
-                Tecnologías principales que fortalecen mi perfil para roles de
-                Software Developer Jr, Web Developer, Backend Jr o Fullstack Jr.
-              </p>
-
-              <p className="text-sm font-black uppercase tracking-[0.18em] text-indigo-300">
-                Primary stack
-              </p>
-            </div>
-
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-4 lg:grid-cols-5">
-              {mainLogos.map((item, index) => (
-                <LogoCard key={item.name} item={item} index={index} />
-              ))}
-            </div>
-          </div>
+          <StackMarquee items={mainLogos} />
         </motion.div>
 
         <div className="hidden gap-4 md:grid">
@@ -571,32 +528,6 @@ function Stack() {
             />
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="mt-6 rounded-[2rem] border border-white/10 bg-[#050816] p-6 shadow-2xl shadow-black/25"
-        >
-          <div className="mb-5">
-            <h3 className="text-2xl font-black tracking-[-0.05em] text-white">
-              Aplicación práctica
-            </h3>
-
-            <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-400">
-              Las tecnologías principales se conectan con proyectos reales:
-              aplicaciones de escritorio, plataformas web, sitios corporativos,
-              APIs, bases de datos y deploy.
-            </p>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-3">
-            {projectLinks.map((item, index) => (
-              <ProjectLinkCard key={item.name} item={item} index={index} />
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   )
