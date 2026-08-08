@@ -99,61 +99,48 @@ function Education() {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-5">
-                  <div className="mb-3 flex items-center gap-3">
-                    <BookOpen className="shrink-0 text-indigo-400" size={19} />
-                    <p className="text-sm font-bold uppercase tracking-[0.18em] text-slate-500">
+              <div className="space-y-5">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <BookOpen className="shrink-0 text-indigo-400" size={16} />
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
                       Carrera
                     </p>
                   </div>
 
-                  <p className="text-xl font-black leading-8 text-white">
+                  <p className="mt-1.5 text-xl font-black leading-8 text-white">
                     Ingeniería en Sistemas Computacionales
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-5">
-                  <div className="mb-3 flex items-center gap-3">
-                    <BadgeCheck className="shrink-0 text-indigo-400" size={19} />
-                    <p className="text-sm font-bold uppercase tracking-[0.18em] text-slate-500">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <BadgeCheck className="shrink-0 text-indigo-400" size={16} />
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
                       Especialidad
                     </p>
                   </div>
 
-                  <p className="text-xl font-black leading-8 text-white">
+                  <p className="mt-1.5 text-xl font-black leading-8 text-white">
                     Transformación Digital de las Organizaciones
                   </p>
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4">
-                  <CalendarClock
-                    className="shrink-0 text-indigo-400"
-                    size={18}
-                  />
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
-                      Estado
-                    </p>
-                    <p className="mt-1 text-sm font-bold text-white">
-                      Titulación en proceso
-                    </p>
-                  </div>
-                </div>
+              <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-bold text-slate-500">
+                <span className="inline-flex items-center gap-1.5">
+                  <CalendarClock className="shrink-0 text-indigo-400" size={14} />
+                  Titulación en proceso
+                </span>
 
-                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4">
-                  <MapPin className="shrink-0 text-indigo-400" size={18} />
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
-                      Ubicación
-                    </p>
-                    <p className="mt-1 text-sm font-bold text-white">
-                      Durango, México
-                    </p>
-                  </div>
-                </div>
+                <span className="text-white/15" aria-hidden="true">
+                  ·
+                </span>
+
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin className="shrink-0 text-indigo-400" size={14} />
+                  Durango, México
+                </span>
               </div>
             </div>
 
@@ -174,30 +161,22 @@ function Education() {
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="divide-y divide-white/10">
                 {focusItems.map((item) => {
                   const Icon = item.icon
 
                   return (
-                    <div
-                      key={item.title}
-                      className="group rounded-2xl border border-white/10 bg-slate-950/35 p-5 transition hover:border-indigo-400/30 hover:bg-white/[0.055]"
-                    >
-                      <div className="flex gap-4">
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-300 transition group-hover:bg-indigo-500/15">
-                          <Icon size={20} />
-                        </div>
-
-                        <div>
-                          <h4 className="text-lg font-black text-white">
-                            {item.title}
-                          </h4>
-
-                          <p className="mt-2 text-sm leading-7 text-slate-400 sm:text-base">
-                            {item.description}
-                          </p>
-                        </div>
+                    <div key={item.title} className="py-4 first:pt-0 last:pb-0">
+                      <div className="flex items-center gap-3">
+                        <Icon className="shrink-0 text-indigo-300" size={18} />
+                        <h4 className="text-base font-black text-white">
+                          {item.title}
+                        </h4>
                       </div>
+
+                      <p className="mt-2 text-sm leading-7 text-slate-400 sm:text-base">
+                        {item.description}
+                      </p>
                     </div>
                   )
                 })}

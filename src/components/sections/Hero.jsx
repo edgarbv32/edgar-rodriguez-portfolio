@@ -111,7 +111,7 @@ const statCardVariants = {
 function StatValue({ value }) {
   const match = value.match(/^(\D*)(\d+)(\D*)$/)
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.6 })
+  const isInView = useInView(ref, { once: true, amount: 0.4 })
   const prefersReducedMotion = useReducedMotion()
   const [count, setCount] = useState(0)
 
@@ -149,14 +149,33 @@ function StatValue({ value }) {
   )
 }
 
+const CAPABILITY_AUTO_ADVANCE_MS = 4000
+
 function Hero() {
   const [activeCapability, setActiveCapability] = useState(capabilities[0])
+  const [isCapabilityPaused, setIsCapabilityPaused] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
   const ActiveIcon = activeCapability.icon
+
+  useEffect(() => {
+    if (prefersReducedMotion || isCapabilityPaused) return
+
+    const id = setInterval(() => {
+      setActiveCapability((current) => {
+        const currentIndex = capabilities.findIndex(
+          (capability) => capability.id === current.id,
+        )
+        return capabilities[(currentIndex + 1) % capabilities.length]
+      })
+    }, CAPABILITY_AUTO_ADVANCE_MS)
+
+    return () => clearInterval(id)
+  }, [isCapabilityPaused, prefersReducedMotion])
 
   return (
     <section
       id="inicio"
-      className="relative flex min-h-screen items-center overflow-hidden px-5 pb-16 pt-28 md:px-8 lg:pb-20 lg:pt-32"
+      className="relative flex min-h-screen items-center-safe overflow-hidden px-5 pb-16 pt-28 md:px-8 lg:pb-20 lg:pt-32"
     >
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.78fr)] lg:items-center">
         <motion.div
@@ -180,7 +199,7 @@ function Hero() {
             Developer
           </h1>
 
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
             <span className="text-sm font-black uppercase tracking-[0.18em] text-slate-500">
               Stack:
             </span>
@@ -242,19 +261,20 @@ function Hero() {
                 key={stat.label}
                 variants={statCardVariants}
                 initial="hidden"
-                animate="visible"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.4 }}
                 transition={{
                   duration: 0.5,
-                  delay: 0.55 + index * 0.08,
+                  delay: index * 0.08,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition duration-300 hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-white/[0.06]"
+                className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition duration-300 hover:-translate-y-1 hover:border-indigo-400/30 hover:bg-white/[0.06]"
               >
                 <p className="text-2xl font-black tracking-[-0.05em] text-white">
                   <StatValue value={stat.value} />
                 </p>
 
-                <p className="mt-1 text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+                <p className="mt-1 text-balance break-words text-[0.62rem] font-black uppercase leading-tight tracking-[0.04em] text-slate-500 xl:text-xs xl:tracking-[0.14em]">
                   {stat.label}
                 </p>
               </motion.div>
@@ -268,6 +288,8 @@ function Hero() {
               initial={{ opacity: 0, x: 28, scale: 0.98 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.65, ease: "easeOut", delay: 0.08 }}
+              onMouseEnter={() => setIsCapabilityPaused(true)}
+              onMouseLeave={() => setIsCapabilityPaused(false)}
               className="relative overflow-hidden rounded-[2rem] border border-indigo-300/20 bg-[#050816] p-5 shadow-2xl shadow-black/30 xl:p-6"
             >
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.2),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.13),transparent_42%)]" />
@@ -290,7 +312,10 @@ function Hero() {
                       <button
                         key={capability.id}
                         type="button"
-                        onClick={() => setActiveCapability(capability)}
+                        onClick={() => {
+                          setActiveCapability(capability)
+                          setIsCapabilityPaused(true)
+                        }}
                         className={[
                           "group flex min-h-[4.6rem] min-w-0 flex-col items-center justify-center rounded-2xl border px-2 py-3 text-center transition duration-300",
                           isActive
