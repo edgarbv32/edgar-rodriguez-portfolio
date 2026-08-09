@@ -1,9 +1,13 @@
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 
-import { motion, useReducedMotion } from "framer-motion"
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+} from "framer-motion"
 import { ChevronDown } from "lucide-react"
-
-import "./Stack.css"
 
 import {
   FaAws,
@@ -13,6 +17,7 @@ import {
   FaHtml5,
   FaJava,
   FaNodeJs,
+  FaPhp,
   FaPython,
   FaReact,
 } from "react-icons/fa"
@@ -21,8 +26,8 @@ import {
   SiDart,
   SiDotnet,
   SiFirebase,
-  SiFlutter,
   SiJavascript,
+  SiMeta,
   SiMongodb,
   SiMysql,
   SiPostman,
@@ -40,6 +45,7 @@ import {
   TbCode,
   TbDatabase,
   TbPlugConnected,
+  TbRepeat,
   TbServer,
 } from "react-icons/tb"
 
@@ -178,6 +184,7 @@ const categories = [
       { name: "C++", icon: TbCode, color: "#659AD2" },
       { name: "Python", icon: FaPython, color: "#3776AB" },
       { name: "Dart", icon: SiDart, color: "#0175C2" },
+      { name: "PHP", icon: FaPhp, color: "#777BB4" },
     ],
   },
   {
@@ -249,6 +256,12 @@ const categories = [
       { name: "Postman", icon: SiPostman, color: "#FF6C37" },
       { name: "VS Code", icon: TbBrandVscode, color: "#007ACC" },
       { name: "AWS básico", icon: FaAws, color: "#FF9900" },
+      { name: "Scrum", icon: TbRepeat, color: "#38BDF8" },
+      {
+        name: "Meta Business Suite",
+        icon: SiMeta,
+        color: "#0866FF",
+      },
     ],
   },
   {
@@ -257,9 +270,7 @@ const categories = [
       "Experiencia complementaria en aplicaciones de escritorio, soluciones multiplataforma y móvil.",
     icon: TbApi,
     items: [
-      { name: "Electron", icon: TbApi, color: "#47848F", strong: true },
-      { name: "Tauri", icon: TbApi, color: "#FFC131" },
-      { name: "Flutter", icon: SiFlutter, color: "#02569B" },
+      { name: "Tauri", icon: TbApi, color: "#FFC131", strong: true },
       { name: "Dart", icon: SiDart, color: "#0175C2" },
     ],
   },
@@ -276,73 +287,195 @@ const fadeUp = {
   },
 }
 
-function StackChip({ item, ariaHidden }) {
+function StackTile({ item, index }) {
   const Icon = item.icon
+  const [isActive, setIsActive] = useState(false)
 
   return (
-    <span
-      aria-hidden={ariaHidden || undefined}
-      className={[
-        "group inline-flex shrink-0 items-center gap-3 rounded-full border px-5 py-3 text-base font-black tracking-[-0.01em] transition duration-300 hover:-translate-y-0.5",
-        item.featured
-          ? "border-indigo-300/25 bg-indigo-500/10 text-white hover:border-indigo-300/40 hover:bg-indigo-500/15"
-          : "border-white/10 bg-white/[0.035] text-slate-300 hover:border-indigo-300/25 hover:bg-indigo-500/10 hover:text-white",
-      ].join(" ")}
+    <motion.button
+      type="button"
+      aria-label={item.name}
+      initial={{ opacity: 0, y: 14, scale: 0.92 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.4, delay: index * 0.025, ease: "easeOut" }}
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+      onFocus={() => setIsActive(true)}
+      onBlur={() => setIsActive(false)}
+      onClick={() => setIsActive((current) => !current)}
+      style={{
+        borderColor: isActive ? `${item.color}66` : undefined,
+        boxShadow: isActive
+          ? `0 0 28px -4px ${item.color}66, inset 0 1px 0 rgba(255,255,255,0.08)`
+          : undefined,
+      }}
+      className="group relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.035] transition-all duration-300 sm:h-16 sm:w-16"
     >
       <Icon
-        className="text-xl transition duration-300 group-hover:scale-110"
+        className="text-2xl transition-transform duration-300 group-hover:scale-110 sm:text-3xl"
         style={{ color: item.color }}
       />
 
-      {item.name}
-    </span>
+      <AnimatePresence>
+        {isActive && (
+          <motion.span
+            role="tooltip"
+            initial={{ opacity: 0, y: 6, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 6, x: "-50%" }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="pointer-events-none absolute -top-3 left-1/2 -translate-y-full whitespace-nowrap rounded-full border border-white/10 bg-[#0a0f1f] px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-white shadow-lg shadow-black/40"
+          >
+            {item.name}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </motion.button>
   )
 }
 
-const MARQUEE_RESUME_DELAY_MS = 4000
+const RING_STEP_DEG = 24
+const RING_DRAG_SENSITIVITY = 0.35
 
-function StackMarquee({ items }) {
-  const [isPaused, setIsPaused] = useState(false)
-  const prefersReducedMotion = useReducedMotion()
-  const resumeTimeoutRef = useRef(null)
+// Orders items center-out (0deg, +step, -step, +2*step, -2*step, ...) so
+// items placed first in `items` land closest to the front-facing angle.
+function buildRingSlots(items) {
+  const angles = [0]
+  let step = 1
 
-  const pauseTemporarily = () => {
-    setIsPaused(true)
-    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
-    resumeTimeoutRef.current = setTimeout(() => {
-      setIsPaused(false)
-    }, MARQUEE_RESUME_DELAY_MS)
+  while (angles.length < items.length) {
+    angles.push(step * RING_STEP_DEG)
+    if (angles.length < items.length) angles.push(-step * RING_STEP_DEG)
+    step += 1
   }
 
-  useEffect(() => {
-    return () => {
-      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
-    }
-  }, [])
+  return items.map((item, index) => ({ ...item, angle: angles[index] }))
+}
+
+const ringItems = buildRingSlots([
+  ...mainLogos.filter((item) => item.featured),
+  ...mainLogos.filter((item) => !item.featured),
+])
+
+function StackRingItem({ item }) {
+  const Icon = item.icon
+  const [isActive, setIsActive] = useState(false)
+  const depth = Math.min(Math.abs(item.angle) / 180, 1)
+  const restOpacity = 1 - depth * 0.65
 
   return (
     <div
-      className="relative overflow-hidden [mask-image:linear-gradient(90deg,black,black_88%,transparent)]"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={pauseTemporarily}
+      className="absolute left-1/2 top-1/2"
+      style={{
+        "--item-angle": `${item.angle}deg`,
+        transform:
+          "translate(-50%, -50%) translate3d(calc(var(--ring-radius-x) * sin(var(--item-angle))), 0px, calc(var(--ring-radius-z) * cos(var(--item-angle)))) rotateY(var(--item-angle))",
+      }}
     >
-      <div
-        className="flex w-max animate-[marquee_46s_linear_infinite] gap-2.5"
+      <button
+        type="button"
+        aria-label={item.name}
+        onMouseEnter={() => setIsActive(true)}
+        onMouseLeave={() => setIsActive(false)}
+        onFocus={() => setIsActive(true)}
+        onBlur={() => setIsActive(false)}
+        onClick={() => setIsActive((current) => !current)}
         style={{
-          animationPlayState:
-            isPaused || prefersReducedMotion ? "paused" : "running",
+          opacity: isActive ? 1 : restOpacity,
+          borderColor: isActive ? `${item.color}66` : undefined,
+          boxShadow: isActive
+            ? `0 0 28px -4px ${item.color}66, inset 0 1px 0 rgba(255,255,255,0.08)`
+            : undefined,
         }}
+        className="group relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.035] transition-[opacity,box-shadow,border-color] duration-300 sm:h-16 sm:w-16"
       >
-        {items.map((item) => (
-          <StackChip key={item.name} item={item} />
-        ))}
+        <Icon
+          className="text-2xl transition-transform duration-300 group-hover:scale-110 sm:text-3xl"
+          style={{ color: item.color }}
+        />
 
-        {items.map((item) => (
-          <StackChip key={`${item.name}-dup`} item={item} ariaHidden />
-        ))}
-      </div>
+        <AnimatePresence>
+          {isActive && (
+            <motion.span
+              role="tooltip"
+              initial={{ opacity: 0, y: 6, x: "-50%" }}
+              animate={{ opacity: 1, y: 0, x: "-50%" }}
+              exit={{ opacity: 0, y: 6, x: "-50%" }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="pointer-events-none absolute -top-3 left-1/2 -translate-y-full whitespace-nowrap rounded-full border border-white/10 bg-[#0a0f1f] px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-white shadow-lg shadow-black/40"
+            >
+              {item.name}
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </button>
     </div>
+  )
+}
+
+function StackRing() {
+  const rotateY = useMotionValue(0)
+
+  const handleDrag = (_, info) => {
+    rotateY.set(rotateY.get() + info.delta.x * RING_DRAG_SENSITIVITY)
+  }
+
+  const handleDragEnd = (_, info) => {
+    const velocity = info.velocity.x * RING_DRAG_SENSITIVITY
+
+    animate(rotateY, rotateY.get() + velocity * 0.25, {
+      type: "inertia",
+      velocity,
+      power: 0.5,
+      timeConstant: 350,
+      restDelta: 0.02,
+    })
+  }
+
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault()
+      animate(rotateY, rotateY.get() - RING_STEP_DEG, {
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1],
+      })
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault()
+      animate(rotateY, rotateY.get() + RING_STEP_DEG, {
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1],
+      })
+    }
+  }
+
+  return (
+    <motion.div
+      role="group"
+      aria-label="Tecnologías principales. Arrastra o usa las flechas del teclado para rotar."
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0}
+      dragMomentum={false}
+      onDrag={handleDrag}
+      onDragEnd={handleDragEnd}
+      className="relative mx-auto h-64 w-full max-w-xl cursor-grab touch-pan-y select-none rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] active:cursor-grabbing sm:h-72 sm:max-w-2xl lg:max-w-3xl [--ring-radius-x:clamp(188px,20vw,227px)] lg:[--ring-radius-x:clamp(227px,30vw,380px)]"
+      style={{
+        perspective: "1000px",
+        "--ring-radius-z": "clamp(188px, 20vw, 227px)",
+      }}
+    >
+      <motion.div
+        style={{ rotateY, transformStyle: "preserve-3d" }}
+        className="absolute left-1/2 top-1/2 h-0 w-0"
+      >
+        {ringItems.map((item) => (
+          <StackRingItem key={item.name} item={item} />
+        ))}
+      </motion.div>
+    </motion.div>
   )
 }
 
@@ -465,6 +598,8 @@ function CategoryAccordionItem({ category, index }) {
 }
 
 function Stack() {
+  const prefersReducedMotion = useReducedMotion()
+
   return (
     <section
       id="stack"
@@ -499,15 +634,23 @@ function Stack() {
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="mb-14"
-        >
-          <StackMarquee items={mainLogos} />
-        </motion.div>
+        {prefersReducedMotion ? (
+          <div className="mb-14 flex flex-wrap justify-center gap-3 sm:gap-4 md:grid md:grid-cols-5 md:items-center md:justify-items-center md:gap-6">
+            {mainLogos.map((item, index) => (
+              <StackTile key={item.name} item={item} index={index} />
+            ))}
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mb-14"
+          >
+            <StackRing />
+          </motion.div>
+        )}
 
         <div className="hidden gap-4 md:grid">
           {categories.map((category, index) => (

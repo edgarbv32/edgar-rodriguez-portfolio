@@ -1,29 +1,27 @@
-import GradientBlinds from "../reactbits/GradientBlinds"
+import MoltenMetal from "../reactbits/MoltenMetal"
 
 function Background() {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-[#0b0713]">
-      <GradientBlinds
-        gradientColors={[
-          "#0b0713",
-          "#1b0f2f",
-          "#5227FF",
-          "#FF9FFC",
-          "#1b0f2f",
-          "#0b0713",
-        ]}
-        angle={-14}
-        noise={0.28}
-        blindCount={13}
-        blindMinWidth={80}
-        spotlightRadius={0.52}
-        spotlightSoftness={1}
-        spotlightOpacity={1.1}
-        mouseDampening={0.08}
-        mirrorGradient={true}
-        distortAmount={0.02}
-        shineDirection="left"
-        mixBlendMode="normal"
+      <MoltenMetal
+        color1="#5227FF"
+        color2="#FF9FFC"
+        color3="#FFFFFF"
+        colorMode="molten"
+        speed={0.28}
+        scale={4.5}
+        detail={3}
+        glow={1.5}
+        coreSize={0.09}
+        swirl={0.85}
+        fold={-0.2}
+        blackPoint={0.08}
+        brightness={1.1}
+        grain={true}
+        grainIntensity={0.045}
+        mouseInteraction={true}
+        mouseStrength={0.22}
+        opacity={0.9}
         dpr={1}
       />
 

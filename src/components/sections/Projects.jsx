@@ -20,14 +20,14 @@ const projects = [
     title: "Hotel San Carlos POS",
     type: "Desktop App",
     status: "Proyecto vendido",
-    category: "Electron · Node.js · SQLite",
+    category: "React · Tauri · SQLite",
     screenshotPath: "/projects/hotel-pos.png",
     screenshotLabel: "Screenshot del sistema POS",
     summary:
       "Sistema POS de escritorio para operación hotelera, ventas, gestión diaria y persistencia local.",
     impact:
       "Solución funcional vendida y entregada para una necesidad operativa real.",
-    stack: ["Electron", "Node.js", "SQLite", "JavaScript", "HTML", "CSS"],
+    stack: ["React", "JavaScript", "Vite", "Tauri", "SQLite", "Git"],
     responsibilities: [
       "Aplicación de escritorio",
       "Base de datos local",
