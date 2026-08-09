@@ -13,6 +13,8 @@ import { FaGithub } from "react-icons/fa"
 
 import { motion } from "framer-motion"
 
+import GradualBlur from "../reactbits/GradualBlur"
+
 const projects = [
   {
     id: "hotel-pos",
@@ -20,19 +22,20 @@ const projects = [
     title: "Hotel San Carlos POS",
     type: "Desktop App",
     status: "Proyecto vendido",
+    year: "2024 – 2025",
     category: "React · Tauri · SQLite",
     screenshotPath: "/projects/hotel-pos.png",
     screenshotLabel: "Screenshot del sistema POS",
     summary:
-      "Sistema POS de escritorio para operación hotelera, ventas, gestión diaria y persistencia local.",
+      "Sistema POS y administrativo hotelero de escritorio con gestión de habitaciones, reservaciones, entradas y salidas, dashboard y reportes en PDF.",
     impact:
       "Solución funcional vendida y entregada para una necesidad operativa real.",
     stack: ["React", "JavaScript", "Vite", "Tauri", "SQLite", "Git"],
     responsibilities: [
-      "Aplicación de escritorio",
-      "Base de datos local",
-      "Flujo de ventas",
-      "Entrega funcional",
+      "Gestión de habitaciones y reservaciones",
+      "Dashboard y reportes en PDF",
+      "Autenticación y rutas privadas",
+      "Persistencia local (SQLite)",
     ],
     icon: MonitorCog,
     repo: "https://github.com/edgarbv32/hotel-san-carlos-pos",
@@ -44,19 +47,29 @@ const projects = [
     title: "SapiensAds AI",
     type: "Web Platform",
     status: "Proyecto interno",
-    category: "React · Firebase · APIs REST",
+    year: "2025",
+    category: "React · Node.js · Firebase",
     screenshotPath: "/projects/sapiensads.png",
     screenshotLabel: "Screenshot de plataforma web",
     summary:
-      "Plataforma web para operación digital, gestión de datos, automatización e integración de herramientas.",
+      "Plataforma SaaS para generación de anuncios con IA: animación de imágenes mediante el motor Gemini Omni Flash y generación de copys publicitarios en 3 categorías de venta (agresiva, emocional y de necesidad).",
     impact:
       "Apoyo a procesos internos reales mediante interfaz web y servicios conectados.",
-    stack: ["React", "Firebase", "APIs REST", "JavaScript", "Tailwind"],
-    responsibilities: [
-      "Interfaz web",
+    stack: [
+      "React",
+      "Node.js",
       "Firebase",
-      "Integraciones",
-      "Automatización",
+      "Firestore",
+      "Resend",
+      "Gemini Omni Flash",
+      "JavaScript",
+      "Git",
+    ],
+    responsibilities: [
+      "Generación de anuncios con IA",
+      "Animación de imágenes (Gemini)",
+      "Copys en 3 categorías de venta",
+      "Autenticación sin contraseña",
     ],
     icon: Workflow,
     repo: "https://github.com/edgarbv32/SapiensAds-main",
@@ -68,6 +81,7 @@ const projects = [
     title: "Desarrollo Web Corporativo",
     type: "Corporate Websites",
     status: "Sitios reales",
+    year: "2025 – 2026",
     category: "React · HTML5 · CSS3 · Deploy",
     screenshotPath: "/projects/corporate-web.png",
     screenshotLabel: "Screenshot de sitio web corporativo",
@@ -137,6 +151,19 @@ function ScreenshotPreview({ project }) {
               "absolute inset-0 h-full w-full object-cover transition duration-500",
               imageLoaded ? "opacity-100" : "opacity-0",
             ].join(" ")}
+          />
+        ) : null}
+
+        {!imageFailed && imageLoaded ? (
+          <GradualBlur
+            position="bottom"
+            height="2rem"
+            strength={1.5}
+            divCount={5}
+            curve="ease-out"
+            opacity={1}
+            target="parent"
+            zIndex={5}
           />
         ) : null}
 
@@ -215,6 +242,10 @@ function ProjectCard({ project, index }) {
 
             <span className="rounded-full border border-indigo-300/15 bg-indigo-500/10 px-3 py-2 text-[0.65rem] font-black uppercase tracking-[0.14em] text-indigo-100">
               {project.type}
+            </span>
+
+            <span className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-2 text-[0.65rem] font-black uppercase tracking-[0.14em] text-slate-400">
+              {project.year}
             </span>
           </div>
 

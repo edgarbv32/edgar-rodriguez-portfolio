@@ -5,6 +5,7 @@ import {
   Code2,
   Cpu,
   GraduationCap,
+  Languages,
   MapPin,
   Network,
 } from "lucide-react"
@@ -140,6 +141,15 @@ function Education() {
                 <span className="inline-flex items-center gap-1.5">
                   <MapPin className="shrink-0 text-indigo-400" size={14} />
                   Durango, México
+                </span>
+
+                <span className="text-white/15" aria-hidden="true">
+                  ·
+                </span>
+
+                <span className="inline-flex items-center gap-1.5">
+                  <Languages className="shrink-0 text-indigo-400" size={14} />
+                  Inglés B2
                 </span>
               </div>
             </div>

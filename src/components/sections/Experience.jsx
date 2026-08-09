@@ -27,6 +27,8 @@ const experienceTags = [
   "APIs REST",
   "Automatización",
   "Integraciones",
+  "Meta Business Suite",
+  "Scrum",
   "Bases de datos",
   "Deploy",
   "Soporte técnico",
@@ -80,15 +82,17 @@ function Experience() {
               </p>
 
               <h3 className="mt-3 break-words text-3xl font-black leading-tight tracking-[-0.05em] text-white sm:text-4xl">
-                Desarrollador de Soluciones Web y Automatización
+                Desarrollador Full Stack — Soluciones Tecnológicas
               </h3>
 
               <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
                 Desarrollo e implementación de soluciones tecnológicas para
                 operación comercial: aplicaciones web, sitios corporativos,
-                sistemas internos, automatización de procesos, integración de
-                herramientas, soporte técnico, revisión de logs y despliegue de
-                soluciones orientadas al negocio.
+                sistemas internos, automatización de procesos e integración de
+                herramientas mediante Meta Business Suite. Aplicación de
+                metodología Scrum, soporte técnico, revisión de logs y
+                coordinación de un equipo técnico de 2 colaboradores y 2
+                residentes profesionales.
               </p>
             </div>
 

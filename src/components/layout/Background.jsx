@@ -8,20 +8,20 @@ function Background() {
         color2="#FF9FFC"
         color3="#FFFFFF"
         colorMode="molten"
-        speed={0.28}
-        scale={4.5}
+        speed={0.35}
+        scale={4}
         detail={3}
-        glow={1.5}
-        coreSize={0.09}
-        swirl={0.85}
+        glow={1.6}
+        coreSize={0.1}
+        swirl={1}
         fold={-0.2}
-        blackPoint={0.08}
-        brightness={1.1}
+        blackPoint={0.05}
+        brightness={1.3}
         grain={true}
-        grainIntensity={0.045}
-        mouseInteraction={true}
-        mouseStrength={0.22}
-        opacity={0.9}
+        grainIntensity={0.05}
+        mouseInteraction={false}
+        mouseStrength={0.3}
+        opacity={1}
         dpr={1}
       />
 

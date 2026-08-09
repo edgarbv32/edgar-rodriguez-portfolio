@@ -39,11 +39,15 @@ import {
 } from "react-icons/si"
 
 import {
+  TbActivity,
   TbApi,
+  TbBrain,
   TbBrandVscode,
   TbCloudUpload,
   TbCode,
   TbDatabase,
+  TbFileText,
+  TbLock,
   TbPlugConnected,
   TbRepeat,
   TbServer,
@@ -226,6 +230,15 @@ const categories = [
         color: "#C084FC",
         strong: true,
       },
+      {
+        name: "Autenticación",
+        icon: TbLock,
+        color: "#6366F1",
+        strong: true,
+      },
+      { name: "Análisis de logs", icon: TbFileText, color: "#818CF8" },
+      { name: "Monitoreo de servicios", icon: TbActivity, color: "#A78BFA" },
+      { name: "IA aplicada", icon: TbBrain, color: "#C084FC" },
     ],
   },
   {

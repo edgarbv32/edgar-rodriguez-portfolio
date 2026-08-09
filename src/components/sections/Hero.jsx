@@ -22,6 +22,7 @@ import {
 
 import MobileHeroCarousel from "../hero/MobileHeroCarousel"
 import RotatingText from "../reactbits/RotatingText"
+import StrokeText from "../reactbits/StrokeText"
 
 const rotatingTexts = [
   "Software Developer",
@@ -194,9 +195,37 @@ function Hero() {
           </p>
 
           <h1 className="max-w-5xl break-words text-[3.4rem] font-black leading-[0.9] tracking-[-0.075em] text-white min-[390px]:text-[3.85rem] sm:text-[5rem] md:text-[5.6rem] lg:text-[6.1rem] xl:text-[6.9rem]">
-            Full Stack
-            <br />
-            Developer
+            <StrokeText
+              text="Full Stack"
+              trigger="mount"
+              fillMode="wipe"
+              strokeColor="#A78BFA"
+              fillColor="#FFFFFF"
+              fontSize={110}
+              fontWeight={900}
+              letterSpacing={-7}
+              strokeWidth={1.2}
+              drawDuration={1.6}
+              fillDelay={0.15}
+              stagger={0.04}
+              className="w-fit! [--stroke-text-height:3.06rem]! min-[390px]:[--stroke-text-height:3.465rem]! sm:[--stroke-text-height:4.5rem]! md:[--stroke-text-height:5.04rem]! lg:[--stroke-text-height:5.49rem]! xl:[--stroke-text-height:6.21rem]!"
+            />
+            <StrokeText
+              text="Developer"
+              trigger="mount"
+              fillMode="wipe"
+              strokeColor="#A78BFA"
+              fillColor="#FFFFFF"
+              fontSize={110}
+              fontWeight={900}
+              letterSpacing={-7}
+              strokeWidth={1.2}
+              drawDuration={1.6}
+              fillDelay={0.15}
+              stagger={0.04}
+              startDelay={0.35}
+              className="w-fit! [--stroke-text-height:3.06rem]! min-[390px]:[--stroke-text-height:3.465rem]! sm:[--stroke-text-height:4.5rem]! md:[--stroke-text-height:5.04rem]! lg:[--stroke-text-height:5.49rem]! xl:[--stroke-text-height:6.21rem]!"
+            />
           </h1>
 
           <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
