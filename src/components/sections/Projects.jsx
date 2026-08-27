@@ -5,6 +5,7 @@ import {
   BadgeCheck,
   Code2,
   ExternalLink,
+  Images,
   MonitorCog,
   Workflow,
 } from "lucide-react"
@@ -14,6 +15,7 @@ import { FaGithub } from "react-icons/fa"
 import { motion } from "framer-motion"
 
 import GradualBlur from "../reactbits/GradualBlur"
+import ProjectGalleryModal from "./ProjectGalleryModal"
 
 const projects = [
   {
@@ -24,8 +26,8 @@ const projects = [
     status: "Proyecto vendido",
     year: "2024 – 2025",
     category: "React · Tauri · SQLite",
-    screenshotPath: "/projects/hotel-pos.png",
-    screenshotLabel: "Screenshot del sistema POS",
+    screenshotFolder: "hotel-pos",
+    screenshotCount: 20,
     summary:
       "Sistema POS y administrativo hotelero de escritorio con gestión de habitaciones, reservaciones, entradas y salidas, dashboard y reportes en PDF.",
     impact:
@@ -49,8 +51,8 @@ const projects = [
     status: "Proyecto interno",
     year: "2025",
     category: "React · Node.js · Firebase",
-    screenshotPath: "/projects/sapiensads.png",
-    screenshotLabel: "Screenshot de plataforma web",
+    screenshotFolder: "sapiensads",
+    screenshotCount: 16,
     summary:
       "Plataforma SaaS para generación de anuncios con IA: animación de imágenes mediante el motor Gemini Omni Flash y generación de copys publicitarios en 3 categorías de venta (agresiva, emocional y de necesidad).",
     impact:
@@ -83,8 +85,8 @@ const projects = [
     status: "Sitios reales",
     year: "2025 – 2026",
     category: "React · HTML5 · CSS3 · Deploy",
-    screenshotPath: "/projects/corporate-web.png",
-    screenshotLabel: "Screenshot de sitio web corporativo",
+    screenshotFolder: "corporate-web",
+    screenshotCount: 19,
     summary:
       "Sitios web corporativos para presencia digital, comunicación de servicios y oportunidades comerciales.",
     impact:
@@ -97,7 +99,7 @@ const projects = [
       "Mantenimiento",
     ],
     icon: Code2,
-    repo: "",
+    repo: "https://github.com/edgarbv32/mamboreta-coffee",
     featured: false,
   },
 ]
@@ -113,7 +115,13 @@ const fadeUp = {
   },
 }
 
-function ScreenshotPreview({ project }) {
+function getScreenshotPaths(project) {
+  return Array.from({ length: project.screenshotCount }, (_, index) =>
+    `/projects/${project.screenshotFolder}/${String(index + 1).padStart(2, "0")}.png`
+  )
+}
+
+function ScreenshotPreview({ project, paths, onOpenGallery }) {
   const [imageFailed, setImageFailed] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
   const Icon = project.icon
@@ -137,11 +145,11 @@ function ScreenshotPreview({ project }) {
         </span>
       </div>
 
-      <div className="relative aspect-[16/9] overflow-hidden bg-[#050816]">
+      <div className="group/preview relative aspect-[16/9] overflow-hidden bg-[#050816]">
         {!imageFailed ? (
           <img
-            src={project.screenshotPath}
-            alt={project.screenshotLabel}
+            src={paths[0]}
+            alt={`${project.title} — screenshot 1`}
             loading="lazy"
             width={1280}
             height={720}
@@ -155,16 +163,27 @@ function ScreenshotPreview({ project }) {
         ) : null}
 
         {!imageFailed && imageLoaded ? (
-          <GradualBlur
-            position="bottom"
-            height="2rem"
-            strength={1.5}
-            divCount={5}
-            curve="ease-out"
-            opacity={1}
-            target="parent"
-            zIndex={5}
-          />
+          <>
+            <GradualBlur
+              position="bottom"
+              height="2rem"
+              strength={1.5}
+              divCount={5}
+              curve="ease-out"
+              opacity={1}
+              target="parent"
+              zIndex={5}
+            />
+
+            <button
+              type="button"
+              onClick={() => onOpenGallery(0)}
+              className="absolute inset-x-3 bottom-3 z-10 flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-black/55 px-4 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-white opacity-0 backdrop-blur-sm transition duration-300 group-hover/preview:opacity-100 sm:opacity-100"
+            >
+              <Images size={15} />
+              Ver galería completa ({project.screenshotCount})
+            </button>
+          </>
         ) : null}
 
         {imageFailed || !imageLoaded ? (
@@ -205,8 +224,9 @@ function TechPill({ item }) {
   )
 }
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, onOpenGallery }) {
   const Icon = project.icon
+  const screenshotPaths = getScreenshotPaths(project)
 
   return (
     <motion.article
@@ -228,7 +248,11 @@ function ProjectCard({ project, index }) {
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.032)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.032)_1px,transparent_1px)] bg-[length:42px_42px] opacity-20 [mask-image:radial-gradient(circle_at_top_right,black,transparent_62%)]" />
 
       <div className="relative z-10 grid h-full gap-5">
-        <ScreenshotPreview project={project} />
+        <ScreenshotPreview
+          project={project}
+          paths={screenshotPaths}
+          onOpenGallery={(startIndex) => onOpenGallery(project, screenshotPaths, startIndex)}
+        />
 
         <div>
           <div className="mb-4 flex flex-wrap items-center gap-2">
@@ -338,6 +362,18 @@ function ProjectCard({ project, index }) {
 }
 
 function Projects() {
+  const [gallery, setGallery] = useState(null)
+
+  const openGallery = (project, paths, startIndex) => {
+    setGallery({ project, paths, index: startIndex })
+  }
+
+  const closeGallery = () => setGallery(null)
+
+  const navigateGallery = (index) => {
+    setGallery((current) => (current ? { ...current, index } : current))
+  }
+
   return (
     <section
       id="proyectos"
@@ -352,26 +388,35 @@ function Projects() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mb-10"
         >
-          <h2 className="max-w-4xl text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-            Proyectos reales que demuestran{" "}
-            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-              desarrollo, integración y negocio.
-            </span>
+          <h2 className="max-w-4xl text-balance break-words text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
+            Proyectos de escritorio, web y SaaS
           </h2>
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-            Una vista compacta de proyectos donde apliqué software, desarrollo
-            web, bases de datos, automatización, APIs y despliegue en escenarios
-            reales.
+            Software, bases de datos, automatización, APIs y despliegue en 3
+            proyectos
           </p>
         </motion.div>
 
         <div className="grid gap-5 lg:grid-cols-2">
           {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onOpenGallery={openGallery}
+            />
           ))}
         </div>
       </div>
+
+      <ProjectGalleryModal
+        project={gallery?.project ?? null}
+        paths={gallery?.paths ?? []}
+        activeIndex={gallery?.index ?? 0}
+        onClose={closeGallery}
+        onNavigate={navigateGallery}
+      />
     </section>
   )
 }

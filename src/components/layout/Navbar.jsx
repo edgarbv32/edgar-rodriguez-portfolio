@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Download } from "lucide-react"
 import { FaGithub, FaLinkedin } from "react-icons/fa"
 import PillNav from "../reactbits/PillNav"
+import BubbleMenu from "../reactbits/BubbleMenu"
 
 const navItems = [
   { label: "Inicio",      href: "#inicio" },
@@ -11,6 +12,15 @@ const navItems = [
   { label: "Stack",       href: "#stack" },
   { label: "Contacto",    href: "#contacto" },
 ]
+
+const bubbleMenuItems = [
+  { ...navItems[0], rotation: -3 },
+  { ...navItems[1], rotation: 3 },
+  { ...navItems[2], rotation: -3 },
+  { ...navItems[3], rotation: 3 },
+  { ...navItems[4], rotation: -3 },
+  { ...navItems[5], rotation: 3 },
+].map((item) => ({ ...item, ariaLabel: item.label }))
 
 const navActions = [
   {
@@ -70,17 +80,30 @@ function Navbar() {
   }, [])
 
   return (
-    <PillNav
-      items={navItems}
-      actions={navActions}
-      activeHref={activeHref}
-      ease="power3.easeOut"
-      baseColor="rgba(3, 7, 18, 0.76)"
-      pillColor="rgba(15, 23, 42, 0.64)"
-      hoveredPillTextColor="#e0e7ff"
-      pillTextColor="#cbd5e1"
-      initialLoadAnimation={true}
-    />
+    <>
+      <PillNav
+        items={navItems}
+        actions={navActions}
+        activeHref={activeHref}
+        ease="power3.easeOut"
+        baseColor="rgba(3, 7, 18, 0.76)"
+        pillColor="rgba(15, 23, 42, 0.64)"
+        hoveredPillTextColor="#e0e7ff"
+        pillTextColor="#cbd5e1"
+        initialLoadAnimation={true}
+      />
+
+      <BubbleMenu
+        items={bubbleMenuItems}
+        useFixedPosition={true}
+        menuBg="linear-gradient(135deg, #4F46E5, #7C3AED)"
+        menuContentColor="#FFFFFF"
+        menuAriaLabel="Abrir menú"
+        animationEase="back.out(1.5)"
+        animationDuration={0.5}
+        staggerDelay={0.1}
+      />
+    </>
   )
 }
 

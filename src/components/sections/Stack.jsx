@@ -627,23 +627,18 @@ function Stack() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mb-10"
         >
-          <h2 className="max-w-4xl text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-            Stack de{" "}
-            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-              software, web y datos.
-            </span>
+          <h2 className="max-w-4xl text-balance break-words text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
+            Stack de software, web y datos
           </h2>
 
           <p className="mt-6 hidden max-w-3xl text-lg leading-8 text-slate-300 md:block">
-            Tecnologías principales y complementarias organizadas para conectar
-            con vacantes de desarrollo: lenguajes de programación, frontend,
-            backend, bases de datos, herramientas, deploy y experiencia
-            multiplataforma.
+            Organizadas por área: lenguajes, frontend, backend, bases de
+            datos, herramientas y despliegue
           </p>
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:hidden">
-            Tecnologías organizadas por área: lenguajes, frontend, backend,
-            datos y deploy.
+            Organizadas por área: lenguajes, frontend, backend, datos y
+            deploy
           </p>
         </motion.div>
 

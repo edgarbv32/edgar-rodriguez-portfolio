@@ -52,6 +52,9 @@ const fadeUp = {
 
 function ContactItem({ item }) {
   const Icon = item.icon
+  const [emailUser, emailDomain] = item.value.includes("@")
+    ? item.value.split("@")
+    : [null, null]
 
   const content = (
     <>
@@ -65,7 +68,14 @@ function ContactItem({ item }) {
         </p>
 
         <p className="mt-1 break-words text-sm font-bold text-slate-200 sm:text-base">
-          {item.value}
+          {emailUser !== null ? (
+            <>
+              {emailUser}@<wbr />
+              {emailDomain}
+            </>
+          ) : (
+            item.value
+          )}
         </p>
       </div>
     </>
@@ -133,18 +143,13 @@ function Contact() {
 
           <div className="relative z-10 grid gap-9 lg:grid-cols-[minmax(0,0.95fr)_minmax(340px,0.65fr)] lg:items-center">
             <div className="min-w-0">
-              <h2 className="max-w-3xl text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-                Abierto a oportunidades donde pueda{" "}
-                <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-                  construir soluciones digitales.
-                </span>
+              <h2 className="max-w-3xl text-balance break-words text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
+                Abierto a nuevos proyectos.
               </h2>
 
               <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-                Soy egresado de Ingeniería en Sistemas Computacionales y busco
-                colaborar en proyectos de tecnología donde pueda aportar
-                desarrollo web, integración de servicios, bases de datos,
-                automatización y mejora de procesos reales de negocio.
+                Desarrollo web, integración de servicios, bases de datos y
+                automatización de procesos.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">

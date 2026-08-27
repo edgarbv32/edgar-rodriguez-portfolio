@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
-import { ArrowUpRight } from "lucide-react"
 import "./PillNav.css"
 
 const PillNav = ({
@@ -15,20 +14,15 @@ const PillNav = ({
   pillColor = "#120F17",
   hoveredPillTextColor = "#120F17",
   pillTextColor,
-  onMobileMenuClick,
   initialLoadAnimation = true,
 }) => {
   const resolvedPillTextColor = pillTextColor ?? baseColor
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const circleRefs = useRef([])
   const tlRefs = useRef([])
   const activeTweenRefs = useRef([])
   const logoImgRef = useRef(null)
   const logoTweenRef = useRef(null)
-  const hamburgerRef = useRef(null)
-  const mobileMenuRef = useRef(null)
-  const mobileScrimRef = useRef(null)
   const navItemsRef = useRef(null)
   const logoRef = useRef(null)
 
@@ -104,16 +98,6 @@ const PillNav = ({
       document.fonts.ready.then(layout).catch(() => {})
     }
 
-    const menu = mobileMenuRef.current
-    if (menu) {
-      gsap.set(menu, { visibility: "hidden", opacity: 0, y: 10, scaleY: 1 })
-    }
-
-    const scrim = mobileScrimRef.current
-    if (scrim) {
-      gsap.set(scrim, { visibility: "hidden", opacity: 0 })
-    }
-
     if (initialLoadAnimation) {
       const logoElement = logoRef.current
       const navItemsElement = navItemsRef.current
@@ -131,18 +115,6 @@ const PillNav = ({
 
     return () => window.removeEventListener("resize", onResize)
   }, [items, ease, initialLoadAnimation])
-
-  useEffect(() => {
-    if (!isMobileMenuOpen) return
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") closeMobileMenu()
-    }
-
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMobileMenuOpen])
 
   const handleEnter = (index) => {
     const tl = tlRefs.current[index]
@@ -177,86 +149,6 @@ const PillNav = ({
       ease,
       overwrite: "auto",
     })
-  }
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false)
-    const hamburger = hamburgerRef.current
-    const menu = mobileMenuRef.current
-
-    if (hamburger) {
-      const lines = hamburger.querySelectorAll(".hamburger-line")
-      gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease })
-      gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease })
-    }
-
-    if (menu) {
-      gsap.to(menu, {
-        opacity: 0,
-        y: 10,
-        scaleY: 1,
-        duration: 0.2,
-        ease,
-        transformOrigin: "top center",
-        onComplete: () => gsap.set(menu, { visibility: "hidden" }),
-      })
-    }
-
-    const scrim = mobileScrimRef.current
-    if (scrim) {
-      gsap.to(scrim, {
-        opacity: 0,
-        duration: 0.2,
-        ease,
-        onComplete: () => gsap.set(scrim, { visibility: "hidden" }),
-      })
-    }
-  }
-
-  const toggleMobileMenu = () => {
-    const newState = !isMobileMenuOpen
-    setIsMobileMenuOpen(newState)
-    const hamburger = hamburgerRef.current
-    const menu = mobileMenuRef.current
-    const scrim = mobileScrimRef.current
-
-    if (hamburger) {
-      const lines = hamburger.querySelectorAll(".hamburger-line")
-      if (newState) {
-        gsap.to(lines[0], { rotation: 45, y: 3, duration: 0.3, ease })
-        gsap.to(lines[1], { rotation: -45, y: -3, duration: 0.3, ease })
-      } else {
-        gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease })
-        gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease })
-      }
-    }
-
-    if (newState) {
-      if (menu) {
-        gsap.set(menu, { visibility: "visible" })
-        gsap.fromTo(
-          menu,
-          { opacity: 0, y: 10, scaleY: 1 },
-          {
-            opacity: 1,
-            y: 0,
-            scaleY: 1,
-            duration: 0.3,
-            ease,
-            transformOrigin: "top center",
-          },
-        )
-      }
-
-      if (scrim) {
-        gsap.set(scrim, { visibility: "visible" })
-        gsap.fromTo(scrim, { opacity: 0 }, { opacity: 1, duration: 0.3, ease })
-      }
-    } else {
-      closeMobileMenu()
-    }
-
-    onMobileMenuClick?.()
   }
 
   const cssVars = {
@@ -319,7 +211,7 @@ const PillNav = ({
           </a>
         )}
 
-        <div className="pill-nav-items desktop-only" ref={navItemsRef}>
+        <div className="pill-nav-items" ref={navItemsRef}>
           <ul className="pill-list" role="menubar">
             {items.map((item, index) => (
               <li key={item.href || `item-${index}`} role="none">
@@ -351,99 +243,9 @@ const PillNav = ({
         </div>
 
         {actions.length > 0 && (
-          <div className="pill-nav-actions desktop-only">
-            {renderActions()}
-          </div>
+          <div className="pill-nav-actions">{renderActions()}</div>
         )}
-
-        <button
-          className="mobile-menu-button mobile-only"
-          onClick={toggleMobileMenu}
-          aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={isMobileMenuOpen}
-          aria-haspopup="true"
-          ref={hamburgerRef}
-          type="button"
-        >
-          <span className="hamburger-line" />
-          <span className="hamburger-line" />
-        </button>
       </nav>
-
-      <div
-        className="mobile-menu-scrim mobile-only"
-        ref={mobileScrimRef}
-        onClick={closeMobileMenu}
-        aria-hidden="true"
-      />
-
-      <div
-        className="mobile-menu-popover mobile-only"
-        ref={mobileMenuRef}
-        style={cssVars}
-        role="menu"
-      >
-        <ul className="mobile-menu-list" role="none">
-          {items.map((item, index) => {
-            const isActive = activeHref === item.href
-
-            return (
-              <li key={item.href || `mobile-item-${index}`} role="none">
-                <a
-                  role="menuitem"
-                  href={item.href}
-                  className={`mobile-menu-link${isActive ? " is-active" : ""}`}
-                  onClick={closeMobileMenu}
-                >
-                  <span className="mobile-menu-link__label">{item.label}</span>
-                  {isActive && (
-                    <span className="mobile-menu-link__dot" aria-hidden="true" />
-                  )}
-                </a>
-              </li>
-            )
-          })}
-        </ul>
-
-        {actions.length > 0 && (
-          <>
-            <p className="mobile-menu-group-label">Enlaces</p>
-
-            <ul className="mobile-menu-list" role="none">
-              {actions.map((action, index) => (
-                <li key={action.href || `mobile-action-${index}`} role="none">
-                  <a
-                    role="menuitem"
-                    href={action.href}
-                    target={action.target}
-                    rel={action.rel}
-                    download={action.download || undefined}
-                    aria-label={action.ariaLabel || action.label}
-                    className="mobile-menu-link mobile-menu-link--action"
-                    onClick={closeMobileMenu}
-                  >
-                    {action.icon && (
-                      <span className="mobile-menu-link__icon">
-                        {action.icon}
-                      </span>
-                    )}
-                    <span className="mobile-menu-link__label">
-                      {action.label}
-                    </span>
-                    {action.target === "_blank" && (
-                      <ArrowUpRight
-                        className="mobile-menu-link__external"
-                        size={16}
-                        aria-hidden="true"
-                      />
-                    )}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </div>
     </div>
   )
 }

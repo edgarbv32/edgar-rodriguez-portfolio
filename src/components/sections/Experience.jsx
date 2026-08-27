@@ -50,17 +50,13 @@ function Experience() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mb-12 max-w-4xl"
         >
-          <h2 className="text-4xl font-black tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-            Experiencia real desarrollando{" "}
-            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-              software y soluciones digitales
-            </span>
+          <h2 className="text-balance break-words text-4xl font-black tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
+            Experiencia desarrollando software y sistemas web
           </h2>
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Más de 2 años de experiencia práctica construyendo aplicaciones web,
-            sistemas internos, automatización de procesos, integraciones y
-            herramientas digitales aplicadas a necesidades reales de negocio.
+            Más de 2 años construyendo aplicaciones web, sistemas internos,
+            automatización de procesos e integraciones3
           </p>
         </motion.div>
 

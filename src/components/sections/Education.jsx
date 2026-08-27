@@ -44,18 +44,13 @@ function Education() {
           transition={{ duration: 0.6 }}
           className="mb-10"
         >
-          <h2 className="max-w-4xl text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Formación en{" "}
-            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-              sistemas computacionales
-            </span>{" "}
-            aplicada a tecnología y negocio.
+          <h2 className="max-w-4xl text-balance break-words text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Formación académica
           </h2>
 
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Base universitaria enfocada en desarrollo de software, fundamentos
-            de sistemas y aplicación de tecnología para resolver necesidades
-            reales dentro de organizaciones.
+            Base universitaria en desarrollo de software y fundamentos de
+            sistemas
           </p>
         </motion.div>
 
@@ -72,8 +67,8 @@ function Education() {
           <div className="relative grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
             <div className="min-w-0 rounded-[1.6rem] border border-white/10 bg-white/[0.035] p-5 sm:p-7">
               <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-2 shadow-lg shadow-indigo-500/10">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-2 shadow-lg shadow-indigo-500/10 sm:h-20 sm:w-20">
                     <img
                       src="/itd-logo.png"
                       alt="Logo del Instituto Tecnológico de Durango"
@@ -89,7 +84,7 @@ function Education() {
                       Institución
                     </p>
 
-                    <h3 className="mt-2 max-w-xl break-words text-3xl font-black leading-tight text-white sm:text-4xl">
+                    <h3 className="mt-2 max-w-xl break-words text-2xl font-black leading-tight text-white sm:text-3xl">
                       Instituto Tecnológico de Durango
                     </h3>
                   </div>

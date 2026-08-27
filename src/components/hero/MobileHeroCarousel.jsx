@@ -82,24 +82,24 @@ function SlideBody({ slide }) {
 
   return (
     <>
-      <div className="mb-8 flex items-start justify-between gap-4">
-        <div className="min-w-0">
+      <div className="mb-8">
+        <div className="flex items-start justify-between gap-4">
           <span className="text-sm font-black text-indigo-300">
             {slide.number} /
           </span>
 
-          <h3 className="mt-3 break-words text-[2.15rem] font-black leading-[0.9] tracking-[-0.065em] text-white min-[380px]:text-[2.4rem] sm:text-[2.65rem]">
-            {slide.title}
-          </h3>
-
-          <p className="mt-3 text-sm font-black uppercase tracking-[0.16em] text-slate-400">
-            {slide.subtitle}
-          </p>
+          <div className="grid h-[3.5rem] w-[3.5rem] shrink-0 place-items-center rounded-2xl border border-indigo-300/25 bg-indigo-500/10 text-indigo-200 shadow-lg shadow-indigo-500/10">
+            <Icon size={26} />
+          </div>
         </div>
 
-        <div className="grid h-[3.5rem] w-[3.5rem] shrink-0 place-items-center rounded-2xl border border-indigo-300/25 bg-indigo-500/10 text-indigo-200 shadow-lg shadow-indigo-500/10">
-          <Icon size={26} />
-        </div>
+        <h3 className="mt-3 break-words text-[clamp(1.5rem,7.2vw,2rem)] font-black leading-[0.9] tracking-[-0.075em] text-white sm:text-[2.5rem]">
+          {slide.title}
+        </h3>
+
+        <p className="mt-3 text-sm font-black uppercase tracking-[0.16em] text-slate-400">
+          {slide.subtitle}
+        </p>
       </div>
 
       <p className="max-w-sm text-base font-medium leading-7 text-slate-300">
