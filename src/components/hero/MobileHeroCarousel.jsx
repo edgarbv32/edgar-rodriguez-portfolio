@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react"
 
 import {
-  Code2,
   Database,
   GraduationCap,
   Layers3,
+  PenTool,
   Server,
-  Zap,
+  Sparkles,
 } from "lucide-react"
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
@@ -16,14 +16,14 @@ const RESUME_AFTER_INTERACTION_MS = 6000
 
 const slides = [
   {
-    id: "languages",
+    id: "design",
     number: "01",
-    title: "Lenguajes",
-    subtitle: "Base de programación",
+    title: "UX/UI",
+    subtitle: "Diseño de interfaces",
     description:
-      "Conocimientos en JavaScript, TypeScript, Java, C#, C, C++, Python y Dart para construir soluciones web, escritorio y lógica de negocio.",
-    icon: Code2,
-    tags: ["JavaScript", "Java", "C# / .NET", "C / C++", "Python"],
+      "Diseño de interfaces web responsive en Figma, con apoyo de Photoshop, Illustrator, Canva y Claude Design, y traducción del diseño a código.",
+    icon: PenTool,
+    tags: ["Figma", "Responsive", "Photoshop", "Illustrator"],
   },
   {
     id: "frontend",
@@ -31,9 +31,9 @@ const slides = [
     title: "Frontend",
     subtitle: "Interfaces modernas",
     description:
-      "Desarrollo de interfaces responsivas y componentes reutilizables con React, HTML5, CSS3, Tailwind CSS y Vite.",
+      "Desarrollo de interfaces responsivas y componentes reutilizables con React, JavaScript, TypeScript, HTML5, CSS3, Bootstrap y Vite.",
     icon: Layers3,
-    tags: ["React", "HTML5", "CSS3", "Tailwind"],
+    tags: ["React", "TypeScript", "HTML5", "CSS3", "Bootstrap"],
   },
   {
     id: "backend",
@@ -41,9 +41,9 @@ const slides = [
     title: "Backend",
     subtitle: "APIs e integraciones",
     description:
-      "Construcción de lógica de negocio, servicios, APIs REST, integración de herramientas y automatización de procesos.",
+      "Consumo de APIs REST y web services (RESTful y SOAP), lógica de negocio, integración de herramientas y automatización con Node.js y Laravel.",
     icon: Server,
-    tags: ["Node.js", "APIs REST", ".NET básico", "Integraciones"],
+    tags: ["Node.js", "Laravel", "APIs REST", "SOAP"],
   },
   {
     id: "data",
@@ -56,14 +56,14 @@ const slides = [
     tags: ["SQL", "SQLite", "Firebase", "MongoDB", "MySQL"],
   },
   {
-    id: "automation",
+    id: "ai",
     number: "05",
-    title: "Automatización",
-    subtitle: "Procesos y operación",
+    title: "IA",
+    subtitle: "Desarrollo asistido",
     description:
-      "Automatización de flujos comerciales, herramientas internas, revisión de logs, procesos digitales e IA aplicada a negocio.",
-    icon: Zap,
-    tags: ["Procesos", "APIs", "Logs", "IA"],
+      "Uso avanzado de Claude Code, Antigravity, Codex y Claude Design para acelerar prototipado e implementación, con revisión del código generado.",
+    icon: Sparkles,
+    tags: ["Claude Code", "Antigravity", "Codex", "Prompts"],
   },
   {
     id: "profile",
@@ -71,9 +71,9 @@ const slides = [
     title: "Perfil",
     subtitle: "Ingeniería en Sistemas",
     description:
-      "Egresado de Ingeniería en Sistemas Computacionales con enfoque en desarrollo de software, soluciones digitales e integración tecnológica.",
+      "Egresado 2025 de Ingeniería en Sistemas Computacionales, con formación técnica para traducir el diseño a código funcional. Inglés B2.",
     icon: GraduationCap,
-    tags: ["ISC", "Software", "Negocio", "Soluciones"],
+    tags: ["ISC", "UX/UI", "Frontend", "Inglés B2"],
   },
 ]
 

@@ -23,13 +23,21 @@ import {
 } from "react-icons/fa"
 
 import {
+  SiApache,
+  SiBootstrap,
+  SiCanva,
+  SiClaude,
   SiDart,
   SiDotnet,
+  SiFigma,
   SiFirebase,
+  SiGooglegemini,
   SiJavascript,
+  SiLaravel,
   SiMeta,
   SiMongodb,
   SiMysql,
+  SiOpenai,
   SiPostman,
   SiSqlite,
   SiTailwindcss,
@@ -42,20 +50,33 @@ import {
   TbActivity,
   TbApi,
   TbBrain,
+  TbBrandAdobeIllustrator,
+  TbBrandAdobePhotoshop,
   TbBrandVscode,
   TbCloudUpload,
   TbCode,
   TbDatabase,
+  TbDeviceDesktop,
   TbFileText,
   TbLock,
+  TbPalette,
   TbPlugConnected,
   TbRepeat,
+  TbRobot,
   TbServer,
+  TbSparkles,
 } from "react-icons/tb"
 
 import { MdAutoFixHigh } from "react-icons/md"
 
 const mainLogos = [
+  {
+    name: "Figma",
+    role: "UX/UI",
+    icon: SiFigma,
+    color: "#F24E1E",
+    featured: true,
+  },
   {
     name: "React",
     role: "UI",
@@ -85,6 +106,20 @@ const mainLogos = [
     featured: true,
   },
   {
+    name: "TypeScript",
+    role: "Typed JS",
+    icon: SiTypescript,
+    color: "#3178C6",
+    featured: true,
+  },
+  {
+    name: "Bootstrap",
+    role: "UI framework",
+    icon: SiBootstrap,
+    color: "#7952B3",
+    featured: true,
+  },
+  {
     name: "Node.js",
     role: "Backend",
     icon: FaNodeJs,
@@ -92,17 +127,10 @@ const mainLogos = [
     featured: true,
   },
   {
-    name: "Java",
-    role: "Language",
-    icon: FaJava,
-    color: "#F89820",
-    featured: true,
-  },
-  {
-    name: "C# / .NET",
-    role: "Backend base",
-    icon: SiDotnet,
-    color: "#512BD4",
+    name: "Claude Code",
+    role: "AI-assisted dev",
+    icon: SiClaude,
+    color: "#D97757",
     featured: true,
   },
   {
@@ -165,65 +193,90 @@ const mainLogos = [
 
 const categories = [
   {
-    title: "Lenguajes",
+    title: "Diseño UX/UI",
     description:
-      "Base de programación para desarrollo web, backend, escritorio, móvil y fundamentos académicos.",
-    icon: TbCode,
+      "Diseño de interfaces web responsive en Figma y traducción del diseño a código funcional en colaboración con ingeniería.",
+    icon: TbPalette,
     items: [
+      { name: "Figma", icon: SiFigma, color: "#F24E1E", strong: true },
+      {
+        name: "Diseño responsive",
+        icon: TbDeviceDesktop,
+        color: "#818CF8",
+        strong: true,
+      },
+      {
+        name: "Interfaces web",
+        icon: TbPalette,
+        color: "#A78BFA",
+        strong: true,
+      },
+      { name: "Claude Design", icon: SiClaude, color: "#D97757" },
+      {
+        name: "Photoshop",
+        icon: TbBrandAdobePhotoshop,
+        color: "#31A8FF",
+      },
+      {
+        name: "Illustrator",
+        icon: TbBrandAdobeIllustrator,
+        color: "#FF9A00",
+      },
+      { name: "Canva", icon: SiCanva, color: "#00C4CC" },
+    ],
+  },
+  {
+    title: "Frontend",
+    description:
+      "Interfaces web, componentes reutilizables, estructura HTML, estilos CSS y diseño responsivo para móvil y escritorio.",
+    icon: FaReact,
+    items: [
+      { name: "React", icon: FaReact, color: "#61DAFB", strong: true },
       {
         name: "JavaScript",
         icon: SiJavascript,
         color: "#F7DF1E",
         strong: true,
       },
-      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-      { name: "Java", icon: FaJava, color: "#F89820", strong: true },
       {
-        name: "C# / .NET",
-        icon: SiDotnet,
-        color: "#512BD4",
+        name: "TypeScript",
+        icon: SiTypescript,
+        color: "#3178C6",
         strong: true,
       },
-      { name: "C", icon: TbCode, color: "#A8B9CC" },
-      { name: "C++", icon: TbCode, color: "#659AD2" },
-      { name: "Python", icon: FaPython, color: "#3776AB" },
-      { name: "Dart", icon: SiDart, color: "#0175C2" },
-      { name: "PHP", icon: FaPhp, color: "#777BB4" },
-    ],
-  },
-  {
-    title: "Frontend",
-    description:
-      "Interfaces web, componentes reutilizables, estructura HTML, estilos CSS y diseño responsivo.",
-    icon: FaReact,
-    items: [
-      { name: "React", icon: FaReact, color: "#61DAFB", strong: true },
       { name: "HTML5", icon: FaHtml5, color: "#E34F26", strong: true },
       { name: "CSS3", icon: FaCss3Alt, color: "#1572B6", strong: true },
       {
-        name: "Tailwind CSS",
-        icon: SiTailwindcss,
-        color: "#38BDF8",
+        name: "Bootstrap 3, 4 y 5",
+        icon: SiBootstrap,
+        color: "#7952B3",
         strong: true,
       },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38BDF8" },
       { name: "Vite", icon: SiVite, color: "#A855F7" },
     ],
   },
   {
-    title: "Backend",
+    title: "APIs y backend",
     description:
-      "Lógica de negocio, APIs, integraciones, servicios internos y automatización de procesos.",
+      "Consumo de APIs, web services, lógica de negocio, integraciones, servicios internos y automatización de procesos.",
     icon: TbServer,
     items: [
       { name: "Node.js", icon: FaNodeJs, color: "#5FA04E", strong: true },
+      { name: "Laravel", icon: SiLaravel, color: "#FF2D20", strong: true },
       { name: "APIs REST", icon: TbApi, color: "#818CF8", strong: true },
+      {
+        name: "Web services SOAP",
+        icon: TbApi,
+        color: "#A78BFA",
+        strong: true,
+      },
       {
         name: "Integraciones",
         icon: TbPlugConnected,
         color: "#A78BFA",
         strong: true,
       },
-      { name: ".NET básico", icon: SiDotnet, color: "#512BD4" },
       {
         name: "Automatización",
         icon: MdAutoFixHigh,
@@ -238,7 +291,38 @@ const categories = [
       },
       { name: "Análisis de logs", icon: TbFileText, color: "#818CF8" },
       { name: "Monitoreo de servicios", icon: TbActivity, color: "#A78BFA" },
-      { name: "IA aplicada", icon: TbBrain, color: "#C084FC" },
+    ],
+  },
+  {
+    title: "Desarrollo asistido por IA",
+    description:
+      "Uso avanzado de herramientas de IA para acelerar prototipado e implementación, con revisión crítica del código generado.",
+    icon: TbSparkles,
+    items: [
+      {
+        name: "Claude Code",
+        icon: SiClaude,
+        color: "#D97757",
+        strong: true,
+      },
+      {
+        name: "Antigravity",
+        icon: SiGooglegemini,
+        color: "#8E75FF",
+        strong: true,
+      },
+      { name: "Codex", icon: SiOpenai, color: "#FFFFFF", strong: true },
+      {
+        name: "Prompt engineering técnico",
+        icon: TbBrain,
+        color: "#C084FC",
+        strong: true,
+      },
+      {
+        name: "Revisión de código generado",
+        icon: TbRobot,
+        color: "#818CF8",
+      },
     ],
   },
   {
@@ -259,7 +343,7 @@ const categories = [
   {
     title: "Deploy & Tools",
     description:
-      "Publicación, control de versiones, pruebas de APIs, hosting y flujo de desarrollo.",
+      "Publicación en Vercel, Hostinger y servidores Apache, control de versiones, pruebas de APIs y trabajo bajo Scrum.",
     icon: FaGithub,
     items: [
       { name: "Git", icon: FaGitAlt, color: "#F05032", strong: true },
@@ -268,13 +352,29 @@ const categories = [
       { name: "Hostinger", icon: TbCloudUpload, color: "#673DE6" },
       { name: "Postman", icon: SiPostman, color: "#FF6C37" },
       { name: "VS Code", icon: TbBrandVscode, color: "#007ACC" },
-      { name: "AWS básico", icon: FaAws, color: "#FF9900" },
-      { name: "Scrum", icon: TbRepeat, color: "#38BDF8" },
+      { name: "Servidores Apache", icon: SiApache, color: "#D22128" },
+      { name: "AWS", icon: FaAws, color: "#FF9900" },
+      { name: "Scrum", icon: TbRepeat, color: "#38BDF8", strong: true },
+      { name: "Arquitectura modular", icon: TbCode, color: "#A78BFA" },
       {
         name: "Meta Business Suite",
         icon: SiMeta,
         color: "#0866FF",
       },
+    ],
+  },
+  {
+    title: "Lenguajes (base académica)",
+    description:
+      "Base de programación adicional de la carrera, aplicada en proyectos de escritorio, backend y fundamentos de sistemas.",
+    icon: TbCode,
+    items: [
+      { name: "Java", icon: FaJava, color: "#F89820" },
+      { name: "C# / .NET", icon: SiDotnet, color: "#512BD4" },
+      { name: "C", icon: TbCode, color: "#A8B9CC" },
+      { name: "C++", icon: TbCode, color: "#659AD2" },
+      { name: "Python", icon: FaPython, color: "#3776AB" },
+      { name: "PHP", icon: FaPhp, color: "#777BB4" },
     ],
   },
   {
@@ -628,16 +728,16 @@ function Stack() {
           className="mb-10"
         >
           <h2 className="max-w-4xl text-balance break-words text-4xl font-black leading-tight tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-            Stack de software, web y datos
+            Stack de diseño, frontend y software
           </h2>
 
           <p className="mt-6 hidden max-w-3xl text-lg leading-8 text-slate-300 md:block">
-            Organizadas por área: lenguajes, frontend, backend, bases de
-            datos, herramientas y despliegue
+            Organizadas por área: diseño UX/UI, frontend, APIs y backend,
+            IA, bases de datos, herramientas y despliegue
           </p>
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:hidden">
-            Organizadas por área: lenguajes, frontend, backend, datos y
+            Organizadas por área: UX/UI, frontend, backend, IA, datos y
             deploy
           </p>
         </motion.div>

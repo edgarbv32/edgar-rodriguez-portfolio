@@ -15,8 +15,8 @@ const cardData = [
     eyebrow: "Desarrollo",
     title: "Sitios y plataformas internas",
     description:
-      "Desarrollo de sitios web corporativos, páginas comerciales e interfaces funcionales para presencia digital y operación interna.",
-    meta: ["React", "Tailwind", "Responsive"],
+      "Desarrollo de sitios web corporativos completos con React, JavaScript, HTML5, CSS3 y Bootstrap: interfaces responsive pensadas para móvil y escritorio.",
+    meta: ["React", "Bootstrap", "Responsive"],
   },
   {
     color: "#050816",
@@ -24,8 +24,8 @@ const cardData = [
     eyebrow: "Automatización",
     title: "Flujos operativos",
     description:
-      "Automatización de tareas comerciales, organización de procesos internos y apoyo en flujos digitales para mejorar seguimiento y atención.",
-    meta: ["Procesos", "IA", "Operación"],
+      "Automatización de procesos comerciales y administración de flujos de atención digital con Meta Business Suite, apoyado en Scrum y herramientas de IA.",
+    meta: ["Scrum", "IA", "Meta Business Suite"],
   },
   {
     color: "#050816",
@@ -33,8 +33,8 @@ const cardData = [
     eyebrow: "Rol principal",
     title: "Soluciones tecnológicas",
     description:
-      "Rol híbrido combinando desarrollo web, automatización, integración de herramientas, soporte técnico y operación digital aplicada a negocio.",
-    meta: ["Feb 2025 - May 2026", "Durango", "Tech + Negocio"],
+      "Rol híbrido combinando desarrollo web, automatización, integración de herramientas y soporte técnico, además de coordinar un equipo de 2 colaboradores y 2 residentes.",
+    meta: ["Feb 2025 - Jul 2026", "México", "Liderazgo técnico"],
     visual: "dashboard",
   },
   {
@@ -43,8 +43,8 @@ const cardData = [
     eyebrow: "Herramientas",
     title: "Servicios conectados",
     description:
-      "Apoyo en conexión de plataformas digitales, revisión de incidencias, seguimiento de logs y coordinación técnica de herramientas internas.",
-    meta: ["APIs", "Logs", "Servicios"],
+      "Integración de sistemas internos consumiendo web services RESTful y SOAP, con soluciones en Node.js, Laravel y APIs REST.",
+    meta: ["RESTful", "SOAP", "Laravel"],
     visual: "network",
   },
   {
@@ -53,7 +53,7 @@ const cardData = [
     eyebrow: "Soporte técnico",
     title: "APIs, logs e incidencias",
     description:
-      "Revisión de errores, análisis de comportamiento de servicios, seguimiento de incidencias y apoyo técnico en flujos relacionados con backend.",
+      "Seguimiento, mantenimiento y resolución de incidencias en APIs, servicios digitales y plataformas internas mediante análisis de logs.",
     meta: ["Node.js", "REST", "Debug"],
   },
   {
@@ -62,8 +62,8 @@ const cardData = [
     eyebrow: "Publicación",
     title: "Deploy y mantenimiento",
     description:
-      "Publicación y mantenimiento de sitios usando plataformas modernas para entregar proyectos accesibles, funcionales y listos para uso real.",
-    meta: ["Vercel", "Hostinger", "GitHub"],
+      "Configuración, publicación y mantenimiento de sitios y aplicaciones en Vercel, Hostinger y servidores Apache.",
+    meta: ["Vercel", "Hostinger", "Apache"],
   },
 ]
 

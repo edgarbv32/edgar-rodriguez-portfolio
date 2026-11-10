@@ -38,6 +38,7 @@ const projects = [
       "Dashboard y reportes en PDF",
       "Autenticación y rutas privadas",
       "Persistencia local (SQLite)",
+      "Arquitectura modular",
     ],
     icon: MonitorCog,
     repo: "https://github.com/edgarbv32/hotel-san-carlos-pos",
@@ -47,7 +48,7 @@ const projects = [
     id: "sapiens-ads",
     number: "02",
     title: "SapiensAds AI",
-    type: "Web Platform",
+    type: "Fullstack / SaaS",
     status: "Proyecto interno",
     year: "2025",
     category: "React · Node.js · Firebase",
@@ -88,10 +89,18 @@ const projects = [
     screenshotFolder: "corporate-web",
     screenshotCount: 19,
     summary:
-      "Sitios web corporativos para presencia digital, comunicación de servicios y oportunidades comerciales.",
+      "Sitio web de Mamboretá Coffee, cafetería en Durango: presenta su menú, platillos y bebidas destacadas, reseñas, ubicación y horarios, con reservación de mesas y registro de usuarios.",
     impact:
-      "Trabajo aplicado a necesidades reales de negocio, publicación web y diseño responsivo.",
-    stack: ["React", "HTML5", "CSS3", "JavaScript", "Vercel", "Hostinger"],
+      "Presencia digital real para un negocio local, publicada en Vercel y con diseño responsivo para móvil y escritorio.",
+    stack: [
+      "React",
+      "HTML5",
+      "CSS3",
+      "Bootstrap",
+      "JavaScript",
+      "Vercel",
+      "Hostinger",
+    ],
     responsibilities: [
       "Sitios corporativos",
       "Responsive UI",
@@ -100,6 +109,7 @@ const projects = [
     ],
     icon: Code2,
     repo: "https://github.com/edgarbv32/mamboreta-coffee",
+    liveUrl: "https://mamboreta-coffee.vercel.app/",
     featured: false,
   },
 ]
@@ -336,7 +346,20 @@ function ProjectCard({ project, index, onOpenGallery }) {
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 flex flex-wrap gap-3">
+            {project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 px-5 py-3 text-sm font-black uppercase tracking-[0.14em] text-white shadow-lg shadow-indigo-500/20 transition hover:-translate-y-1"
+              >
+                <ExternalLink size={16} />
+                Ver sitio
+                <ArrowUpRight size={16} />
+              </a>
+            ) : null}
+
             {project.repo ? (
               <a
                 href={project.repo}

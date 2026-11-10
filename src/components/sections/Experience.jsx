@@ -24,13 +24,19 @@ const experienceTags = [
   "Desarrollo web",
   "JavaScript",
   "React",
+  "Bootstrap",
+  "Node.js",
+  "Laravel",
   "APIs REST",
+  "RESTful y SOAP",
   "Automatización",
   "Integraciones",
   "Meta Business Suite",
   "Scrum",
-  "Bases de datos",
-  "Deploy",
+  "IA",
+  "Vercel",
+  "Hostinger",
+  "Servidores Apache",
   "Soporte técnico",
   "Logs",
 ]
@@ -55,8 +61,8 @@ function Experience() {
           </h2>
 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            Más de 2 años construyendo aplicaciones web, sistemas internos,
-            automatización de procesos e integraciones3
+            Más de 4 años construyendo aplicaciones web, sistemas internos,
+            automatización de procesos e integraciones
           </p>
         </motion.div>
 
@@ -74,7 +80,7 @@ function Experience() {
               </div>
 
               <p className="text-xs font-black uppercase tracking-[0.24em] text-indigo-300">
-                Sapiens Inteligencia Creativa
+                Sapiens México
               </p>
 
               <h3 className="mt-3 break-words text-3xl font-black leading-tight tracking-[-0.05em] text-white sm:text-4xl">
@@ -82,11 +88,14 @@ function Experience() {
               </h3>
 
               <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
-                Desarrollo e implementación de soluciones tecnológicas para
-                operación comercial: aplicaciones web, sitios corporativos,
-                sistemas internos, automatización de procesos e integración de
-                herramientas mediante Meta Business Suite. Aplicación de
-                metodología Scrum, soporte técnico, revisión de logs y
+                Desarrollo y despliegue de sitios web corporativos completos con
+                React, JavaScript, HTML5, CSS3 y Bootstrap, con publicación y
+                mantenimiento en Vercel, Hostinger y servidores Apache.
+                Soluciones con Node.js, Laravel y APIs REST para automatización
+                de procesos comerciales e integración de sistemas internos,
+                consumiendo web services RESTful y SOAP. Aplicación de Scrum y
+                herramientas de IA, administración de flujos de atención
+                digital con Meta Business Suite, análisis de logs y
                 coordinación de un equipo técnico de 2 colaboradores y 2
                 residentes profesionales.
               </p>
@@ -121,7 +130,7 @@ function Experience() {
                   </div>
 
                   <p className="text-lg font-black text-white">
-                    Durango, México
+                    México · Remoto / reubicación
                   </p>
                 </div>
               </div>

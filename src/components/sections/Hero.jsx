@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react"
 
 import {
   ArrowRight,
-  Code2,
   Database,
   Download,
   Layers3,
+  PenTool,
   Server,
-  Zap,
+  Sparkles,
 } from "lucide-react"
 
 import { FaGithub } from "react-icons/fa"
@@ -25,45 +25,45 @@ import RotatingText from "../reactbits/RotatingText"
 import StrokeText from "../reactbits/StrokeText"
 
 const rotatingTexts = [
-  "Software Developer",
+  "UX/UI Designer",
+  "Figma",
   "React",
   "JavaScript",
+  "TypeScript",
   "HTML5",
   "CSS3",
-  "Node.js",
-  "Java",
-  "C# / .NET",
+  "Bootstrap",
   "APIs REST",
-  "SQL",
+  "Claude Code",
 ]
 
 const capabilities = [
   {
-    id: "languages",
-    label: "Lenguajes",
-    title: "Lenguajes de programación",
+    id: "design",
+    label: "UX/UI",
+    title: "Diseño UX/UI",
     description:
-      "Base técnica en JavaScript, TypeScript, Java, C#, C, C++, Python y Dart, aplicada en proyectos web, escritorio, bases de datos e integración de servicios.",
-    icon: Code2,
-    tags: ["JavaScript", "Java", "C# / .NET", "C / C++", "Python"],
+      "Diseño de interfaces web responsive en Figma, con apoyo de Photoshop, Illustrator, Canva y Claude Design, y traducción del diseño a código funcional.",
+    icon: PenTool,
+    tags: ["Figma", "Responsive", "Photoshop", "Illustrator", "Canva"],
   },
   {
     id: "frontend",
     label: "Frontend",
     title: "Frontend Development",
     description:
-      "Construcción de interfaces responsivas, componentes reutilizables y experiencias web modernas con React, HTML5, CSS3, Tailwind CSS y Vite.",
+      "Construcción de interfaces responsivas, componentes reutilizables y experiencias web modernas con React, JavaScript, TypeScript, HTML5, CSS3, Bootstrap y Vite.",
     icon: Layers3,
-    tags: ["React", "HTML5", "CSS3", "Tailwind", "Vite"],
+    tags: ["React", "TypeScript", "HTML5", "CSS3", "Bootstrap"],
   },
   {
     id: "backend",
     label: "Backend",
-    title: "Backend Development",
+    title: "APIs y Backend",
     description:
-      "Desarrollo de lógica de negocio, servicios, APIs REST, integraciones, automatización y soporte técnico para soluciones digitales reales.",
+      "Consumo de APIs REST y web services (RESTful y SOAP), lógica de negocio, integraciones y automatización con Node.js y Laravel.",
     icon: Server,
-    tags: ["Node.js", "APIs REST", ".NET", "Integraciones"],
+    tags: ["Node.js", "Laravel", "APIs REST", "SOAP"],
   },
   {
     id: "data",
@@ -75,19 +75,19 @@ const capabilities = [
     tags: ["SQL", "SQLite", "Firebase", "MongoDB", "MySQL"],
   },
   {
-    id: "automation",
-    label: "Auto",
-    title: "Automatización e integración",
+    id: "ai",
+    label: "IA",
+    title: "Desarrollo asistido por IA",
     description:
-      "Automatización de procesos, conexión de herramientas, revisión de logs, soporte operativo e implementación de soluciones orientadas a negocio.",
-    icon: Zap,
-    tags: ["Automatización", "APIs", "Logs", "Procesos"],
+      "Uso avanzado de Claude Code, Antigravity, Codex y Claude Design para acelerar prototipado e implementación, con prompt engineering técnico y revisión del código generado.",
+    icon: Sparkles,
+    tags: ["Claude Code", "Antigravity", "Codex", "Prompts"],
   },
 ]
 
 const stats = [
   {
-    value: "+2",
+    value: "+4",
     label: "Años de experiencia práctica",
   },
   {
@@ -187,7 +187,7 @@ function Hero() {
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-400/10 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-emerald-200">
             <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(110,231,183,0.8)]" />
-            Disponible para oportunidades
+            Disponible para remoto y reubicación
           </div>
 
           <p className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-slate-500">
@@ -248,10 +248,11 @@ function Hero() {
           </div>
 
           <p className="mt-7 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-            Ingeniero en Sistemas Computacionales con más de 2 años de
-            experiencia práctica desarrollando software, aplicaciones web,
-            sistemas internos, integraciones, automatización de procesos y
-            soluciones tecnológicas orientadas al negocio.
+            Ingeniero en Sistemas Computacionales que diseña y construye
+            interfaces web responsive con Figma, React y TypeScript, y traduce
+            el diseño a código funcional en colaboración con ingeniería.
+            Experiencia en APIs, bases de datos y despliegue, con enfoque en
+            experiencia de usuario y rendimiento.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

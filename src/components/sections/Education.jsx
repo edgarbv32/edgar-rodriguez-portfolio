@@ -126,7 +126,7 @@ function Education() {
               <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-bold text-slate-500">
                 <span className="inline-flex items-center gap-1.5">
                   <CalendarClock className="shrink-0 text-indigo-400" size={14} />
-                  Titulación en proceso
+                  Egresado 2025 · Titulación en proceso
                 </span>
 
                 <span className="text-white/15" aria-hidden="true">
@@ -144,7 +144,8 @@ function Education() {
 
                 <span className="inline-flex items-center gap-1.5">
                   <Languages className="shrink-0 text-indigo-400" size={14} />
-                  Inglés B2
+                  Español nativo · Inglés B2 (lectura técnica y comunicación
+                  profesional)
                 </span>
               </div>
             </div>

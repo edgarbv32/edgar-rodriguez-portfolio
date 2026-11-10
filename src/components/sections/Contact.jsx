@@ -20,7 +20,7 @@ const contactItems = [
   },
   {
     label: "Ubicación",
-    value: "Durango, Durango, México",
+    value: "México · Disponible para remoto y reubicación",
     href: null,
     icon: MapPin,
   },
